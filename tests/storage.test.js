@@ -55,6 +55,24 @@ describe('mergeDefaults', () => {
     expect(merged.theme).toBe('auto');
   });
 
+  it('accepts Dutch category keys from the seed YAML', () => {
+    const merged = mergeDefaults({
+      documenten: ['paspoort'],
+      kleding: ['sokken'],
+      toiletartikelen: ['zonnebrandcrème'],
+      elektronica: ['laptop'],
+      'voor-vertrek': ['planten water geven'],
+    }, null);
+
+    expect(merged.items.map((i) => `${i.category}:${i.name}`)).toEqual([
+      'documents:paspoort',
+      'clothing:sokken',
+      'toiletries:zonnebrandcrème',
+      'electronics:laptop',
+      'pre-departure:planten water geven',
+    ]);
+  });
+
   it('preserves checked state of existing default items (case-insensitive)', () => {
     const existing = {
       version: 1,

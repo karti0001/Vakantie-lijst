@@ -7,7 +7,7 @@ if (root) {
   initApp(root, { buildId: BUILD_ID }).catch((err) => {
     console.error(err);
     root.innerHTML =
-      '<p role="alert" class="error">Failed to load packing list. Please refresh.</p>';
+      '<p role="alert" class="error">Paklijst laden mislukt. Vernieuw de pagina.</p>';
   });
 }
 
