@@ -10,6 +10,7 @@ train or road trip.
 
 - Five categories — **Documents**, **Clothing**, **Toiletries**, **Electronics**,
   and **Pre-departure** — seeded from [`data/items.yaml`](./data/items.yaml).
+- Choose whether you're packing for a **Private** or **Business** trip.
 - Add your own items, check / uncheck them, or **uncheck all** with a single
   click after your trip.
 - A 🧳 suitcase animation flies each item into the case as you pack it

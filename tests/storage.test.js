@@ -53,6 +53,7 @@ describe('mergeDefaults', () => {
     expect(merged.items.every((i) => i.checked === false)).toBe(true);
     expect(merged.items.every((i) => i.custom === false)).toBe(true);
     expect(merged.theme).toBe('auto');
+    expect(merged.tripType).toBe('private');
   });
 
   it('accepts Dutch category keys from the seed YAML', () => {
@@ -77,6 +78,7 @@ describe('mergeDefaults', () => {
     const existing = {
       version: 1,
       theme: 'dark',
+      tripType: 'business',
       items: [
         { id: 'p', name: 'Passport', category: 'documents', custom: false, checked: true },
       ],
@@ -85,6 +87,7 @@ describe('mergeDefaults', () => {
     const passport = merged.items.find((i) => i.name === 'passport');
     expect(passport.checked).toBe(true);
     expect(merged.theme).toBe('dark');
+    expect(merged.tripType).toBe('business');
   });
 
   it('keeps user-added custom items', () => {

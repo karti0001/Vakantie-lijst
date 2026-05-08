@@ -92,6 +92,7 @@ export async function initApp(root, opts = {}) {
     const controls = document.createElement('div');
     controls.className = 'controls';
     controls.appendChild(buildThemeSelect());
+    controls.appendChild(buildTripTypeSelect());
     controls.appendChild(buildCheckAllButton());
     controls.appendChild(buildResetButton());
     controls.appendChild(buildShareButton());
@@ -321,6 +322,25 @@ export async function initApp(root, opts = {}) {
       state.theme = /** @type {any} */ (select.value);
       saveState(state, storage);
       applyTheme(state.theme);
+    });
+    return wrap;
+  }
+
+  function buildTripTypeSelect() {
+    const wrap = document.createElement('label');
+    wrap.className = 'trip-type-select';
+    wrap.innerHTML = `
+      <span class="visually-hidden">Reissoort</span>
+      <select aria-label="Reissoort">
+        <option value="private">🏖️ Privé reis</option>
+        <option value="business">💼 Zakelijke reis</option>
+      </select>
+    `;
+    const select = /** @type {HTMLSelectElement} */ (wrap.querySelector('select'));
+    select.value = state.tripType;
+    select.addEventListener('change', () => {
+      state.tripType = /** @type {any} */ (select.value);
+      saveState(state, storage);
     });
     return wrap;
   }
