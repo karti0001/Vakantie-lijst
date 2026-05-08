@@ -228,6 +228,15 @@ describe('app integration', () => {
     expect(root.querySelector('select[aria-label="Reissoort"]').value).toBe('business');
   });
 
+  it('renders the travel documents destination selector on mount', async () => {
+    const { root } = await mount();
+    const section = root.querySelector('.travel-documents');
+    expect(section).toBeTruthy();
+    expect(section.querySelector('h2').textContent).toContain('Reisdocumenten');
+    expect(section.querySelector('#destination-country')).toBeTruthy();
+    expect(section.textContent).toContain('Nog geen bestemming gekozen');
+  });
+
   it('shows official travel documents for the selected destination country', async () => {
     const { root, storage } = await mount();
     const select = root.querySelector('#destination-country');
@@ -257,9 +266,9 @@ describe('app integration', () => {
     expect(root.querySelector('.travel-documents').textContent).toContain('e-Visa');
     expect(root.querySelector('.travel-documents').textContent).toContain('Vaccinatiebewijs');
 
-    root.querySelector('#destination-country').value = 'de';
-    root.querySelector('#destination-country')
-      .dispatchEvent(new Event('change', { bubbles: true }));
+    const updatedSelect = root.querySelector('#destination-country');
+    updatedSelect.value = 'de';
+    updatedSelect.dispatchEvent(new Event('change', { bubbles: true }));
     const section = root.querySelector('.travel-documents');
     expect(section.textContent).toContain('Geen visum vereist');
     expect(section.textContent).not.toContain('e-Visa');
