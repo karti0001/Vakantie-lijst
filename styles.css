@@ -309,6 +309,82 @@ button {
   background: var(--primary-strong);
 }
 
+/* ---------- Travel documents ---------- */
+.travel-documents {
+  background: var(--surface);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.25rem;
+  box-shadow: var(--shadow);
+}
+
+.travel-documents h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.15rem;
+}
+
+.destination-select {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-weight: 600;
+}
+
+.destination-select select {
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface-strong);
+  color: var(--text);
+  box-shadow: var(--shadow);
+}
+
+.travel-documents-help,
+.travel-document-summary {
+  margin: 0.75rem 0 0;
+  color: var(--text-muted);
+}
+
+.travel-document-list {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.travel-document-item {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  border-radius: var(--radius);
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+}
+
+.travel-document-type {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.travel-document-item a {
+  color: var(--primary-strong);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.travel-document-item a:hover {
+  text-decoration: underline;
+}
+
+.travel-document-warning {
+  margin: 0.25rem 0 0;
+  color: var(--primary-strong);
+  font-size: 0.9rem;
+}
+
 /* ---------- Lists ---------- */
 .list {
   background: var(--surface);

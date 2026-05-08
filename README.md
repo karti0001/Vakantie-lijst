@@ -11,6 +11,8 @@ train or road trip.
 - Five categories — **Documents**, **Clothing**, **Toiletries**, **Electronics**,
   and **Pre-departure** — seeded from [`data/items.yaml`](./data/items.yaml).
 - Choose whether you're packing for a **Private** or **Business** trip.
+- Select a destination country to see configurable travel documents such as
+  ESTA, visas, EU no-visa guidance, official application links, and warnings.
 - Add your own items, check / uncheck them, or **uncheck all** with a single
   click after your trip.
 - A 🧳 suitcase animation flies each item into the case as you pack it
@@ -52,6 +54,7 @@ deployed.
 │   ├── storage.js           # localStorage shape + merge helpers
 │   └── yaml.js              # tiny YAML parser
 ├── data/items.yaml          # seed packing list
+├── data/travel-documents.json # destination travel document mapping
 ├── icons/                   # PWA icons
 ├── tests/                   # vitest + jsdom + axe-core
 ├── tools/serve.js           # zero-dep dev server

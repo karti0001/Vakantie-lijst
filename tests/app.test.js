@@ -45,6 +45,53 @@ voor-vertrek:
   - water plants
 `;
 
+const TRAVEL_DOCUMENTS = {
+  countries: [
+    {
+      code: 'us',
+      name: 'Verenigde Staten',
+      documents: [
+        {
+          name: 'ESTA',
+          type: 'Elektronische reistoestemming',
+          url: 'https://esta.cbp.dhs.gov/',
+          warning: 'Vraag ESTA minimaal 72 uur voor vertrek aan via de officiële website.',
+        },
+      ],
+    },
+    {
+      code: 'in',
+      name: 'India',
+      documents: [
+        {
+          name: 'e-Visa',
+          type: 'Visum',
+          url: 'https://indianvisaonline.gov.in/evisa/',
+          warning: 'Vraag je visum ruim voor vertrek aan.',
+        },
+        {
+          name: 'Vaccinatiebewijs',
+          type: 'Gezondheidsdocument',
+          url: 'https://www.nederlandwereldwijd.nl/reisadvies/india',
+          warning: 'Controleer actuele gezondheidsvereisten.',
+        },
+      ],
+    },
+    {
+      code: 'de',
+      name: 'Duitsland',
+      documents: [
+        {
+          name: 'Geen visum vereist',
+          type: 'EU-bestemming',
+          url: 'https://europa.eu/youreurope/citizens/travel/entry-exit/eu-citizen/index_nl.htm',
+          warning: 'Voor EU-burgers is geen visum vereist.',
+        },
+      ],
+    },
+  ],
+};
+
 function memStorage() {
   const map = new Map();
   return {
@@ -57,7 +104,12 @@ function memStorage() {
   };
 }
 
-async function mount(storage = memStorage(), locationHash = '', yaml = YAML) {
+async function mount(
+  storage = memStorage(),
+  locationHash = '',
+  yaml = YAML,
+  travelDocuments = TRAVEL_DOCUMENTS,
+) {
   // Mirror the document-level attributes from index.html so accessibility
   // checks see the same surface as production.
   document.documentElement.lang = 'nl';
@@ -71,6 +123,7 @@ async function mount(storage = memStorage(), locationHash = '', yaml = YAML) {
   await initApp(root, {
     storage,
     fetchYaml: async () => yaml,
+    fetchTravelDocuments: async () => travelDocuments,
     locationHash,
   });
   return { root, storage };
@@ -218,6 +271,43 @@ describe('app integration', () => {
     expect(JSON.parse(storage.getItem(STORAGE_KEY)).tripType).toBe('business');
     const { root } = await mount(storage);
     expect(root.querySelector('select[aria-label="Reissoort"]').value).toBe('business');
+  });
+
+  it('shows official travel documents for the selected destination country', async () => {
+    const { root, storage } = await mount();
+    const select = root.querySelector('#destination-country');
+    expect(select).toBeTruthy();
+    expect(Array.from(select.options).map((option) => option.textContent))
+      .toContain('Verenigde Staten');
+
+    select.value = 'us';
+    select.dispatchEvent(new Event('change', { bubbles: true }));
+
+    const section = root.querySelector('.travel-documents');
+    expect(section.textContent).toContain('Vereist voor Verenigde Staten');
+    expect(section.textContent).toContain('ESTA');
+    expect(section.textContent).toContain('minimaal 72 uur');
+    const link = section.querySelector('.travel-document-item a');
+    expect(link.href).toBe('https://esta.cbp.dhs.gov/');
+    expect(link.rel).toBe('noopener');
+    expect(JSON.parse(storage.getItem(STORAGE_KEY)).destinationCountry).toBe('us');
+  });
+
+  it('updates the required document list when the destination changes', async () => {
+    const { root } = await mount();
+    const select = root.querySelector('#destination-country');
+
+    select.value = 'in';
+    select.dispatchEvent(new Event('change', { bubbles: true }));
+    expect(root.querySelector('.travel-documents').textContent).toContain('e-Visa');
+    expect(root.querySelector('.travel-documents').textContent).toContain('Vaccinatiebewijs');
+
+    root.querySelector('#destination-country').value = 'de';
+    root.querySelector('#destination-country')
+      .dispatchEvent(new Event('change', { bubbles: true }));
+    const section = root.querySelector('.travel-documents');
+    expect(section.textContent).toContain('Geen visum vereist');
+    expect(section.textContent).not.toContain('e-Visa');
   });
 
   it('shows unchecked items in a dedicated section', async () => {
@@ -413,6 +503,7 @@ describe('app integration', () => {
     await initApp(r, {
       storage: memStorage(),
       fetchYaml: async () => YAML,
+      fetchTravelDocuments: async () => TRAVEL_DOCUMENTS,
       buildId: 'abc123def456-20240101120000',
     });
     const footer = r.querySelector('.app-footer');

@@ -9,6 +9,9 @@ import { buildShareUrl, readShareFromHash } from './share.js';
 
 /** @typedef {import('./storage.js').State} State */
 /** @typedef {import('./storage.js').Item} Item */
+/** @typedef {{ name: string, type: string, url?: string, warning?: string }} TravelDocument */
+/** @typedef {{ code: string, name: string, documents: TravelDocument[] }} TravelCountry */
+/** @typedef {{ countries: TravelCountry[] }} TravelDocumentData */
 
 const CATEGORIES = /** @type {const} */ (['documents', 'clothing', 'toiletries', 'electronics', 'pre-departure']);
 const CATEGORY_LABELS = {
@@ -27,6 +30,7 @@ const UNCHECKED_AUTO_COLLAPSE_THRESHOLD = 5;
  * @param {HTMLElement} root
  * @param {object} [opts]
  * @param {() => Promise<string>} [opts.fetchYaml]  - returns YAML text
+ * @param {() => Promise<TravelDocumentData>} [opts.fetchTravelDocuments]
  * @param {Storage} [opts.storage]
  * @param {string} [opts.buildId]  - stamped by deploy workflow
  */
@@ -41,8 +45,18 @@ export async function initApp(root, opts = {}) {
       if (!res.ok) throw new Error(`Failed to load items.yaml: ${res.status}`);
       return res.text();
     });
+  const fetchTravelDocuments =
+    opts.fetchTravelDocuments ??
+    (async () => {
+      const res = await fetch('./data/travel-documents.json');
+      if (!res.ok) throw new Error(`Failed to load travel-documents.json: ${res.status}`);
+      return res.json();
+    });
 
-  const yamlText = await fetchYaml();
+  const [yamlText, travelDocuments] = await Promise.all([
+    fetchYaml(),
+    loadTravelDocumentData(fetchTravelDocuments),
+  ]);
   const defaults = parseYaml(yamlText);
   /** @type {State} */
   let state = mergeDefaults(defaults, loadState(storage));
@@ -151,6 +165,7 @@ export async function initApp(root, opts = {}) {
       nameEl.focus();
     });
     root.appendChild(form);
+    root.appendChild(buildTravelDocumentsSection());
 
     const uncheckedSection = document.createElement('section');
     uncheckedSection.className = 'list list-unchecked';
@@ -376,6 +391,108 @@ export async function initApp(root, opts = {}) {
       showShareDialog(buildShareUrl(state.items));
     });
     return btn;
+  }
+
+  function buildTravelDocumentsSection() {
+    const section = document.createElement('section');
+    section.className = 'travel-documents';
+    section.setAttribute('aria-labelledby', 'heading-travel-documents');
+
+    const heading = document.createElement('h2');
+    heading.id = 'heading-travel-documents';
+    heading.textContent = '🛂 Reisdocumenten';
+    section.appendChild(heading);
+
+    const label = document.createElement('label');
+    label.className = 'destination-select';
+    label.htmlFor = 'destination-country';
+    label.textContent = 'Bestemming';
+
+    const select = document.createElement('select');
+    select.id = 'destination-country';
+    select.name = 'destination-country';
+    select.setAttribute('aria-describedby', 'travel-documents-help');
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = 'Kies een land…';
+    select.appendChild(placeholder);
+
+    for (const country of travelDocuments.countries) {
+      const option = document.createElement('option');
+      option.value = country.code;
+      option.textContent = country.name;
+      select.appendChild(option);
+    }
+
+    const selectedCountry = travelDocuments.countries.find(
+      (country) => country.code === state.destinationCountry,
+    );
+    select.value = selectedCountry?.code ?? '';
+    select.addEventListener('change', () => {
+      state.destinationCountry = select.value;
+      saveState(state, storage);
+      render();
+    });
+    label.appendChild(select);
+    section.appendChild(label);
+
+    const help = document.createElement('p');
+    help.id = 'travel-documents-help';
+    help.className = 'travel-documents-help';
+    help.textContent = 'Selecteer je bestemming om officiële documenten en waarschuwingen te zien.';
+    section.appendChild(help);
+
+    const result = document.createElement('div');
+    result.className = 'travel-document-result';
+    result.setAttribute('aria-live', 'polite');
+    if (!selectedCountry) {
+      const empty = document.createElement('p');
+      empty.className = 'empty';
+      empty.textContent = 'Nog geen bestemming gekozen.';
+      result.appendChild(empty);
+    } else {
+      const summary = document.createElement('p');
+      summary.className = 'travel-document-summary';
+      summary.textContent = `Vereist voor ${selectedCountry.name}:`;
+      result.appendChild(summary);
+
+      const list = document.createElement('ul');
+      list.className = 'travel-document-list';
+      for (const doc of selectedCountry.documents) {
+        const item = document.createElement('li');
+        item.className = 'travel-document-item';
+
+        const title = document.createElement('strong');
+        title.textContent = doc.name;
+        item.appendChild(title);
+
+        const type = document.createElement('span');
+        type.className = 'travel-document-type';
+        type.textContent = doc.type;
+        item.appendChild(type);
+
+        if (doc.url) {
+          const link = document.createElement('a');
+          link.href = doc.url;
+          link.target = '_blank';
+          link.rel = 'noopener';
+          link.textContent = 'Officiële aanvraag';
+          item.appendChild(link);
+        }
+
+        if (doc.warning) {
+          const warning = document.createElement('p');
+          warning.className = 'travel-document-warning';
+          warning.textContent = doc.warning;
+          item.appendChild(warning);
+        }
+        list.appendChild(item);
+      }
+      result.appendChild(list);
+    }
+    section.appendChild(result);
+
+    return section;
   }
 
   /** @param {string} url */
@@ -787,5 +904,20 @@ export async function initApp(root, opts = {}) {
   /** @param {'auto'|'light'|'dark'} theme */
   function applyTheme(theme) {
     document.documentElement.dataset.theme = theme;
+  }
+}
+
+/**
+ * @param {() => Promise<TravelDocumentData>} fetchTravelDocuments
+ * @returns {Promise<TravelDocumentData>}
+ */
+async function loadTravelDocumentData(fetchTravelDocuments) {
+  try {
+    const data = await fetchTravelDocuments();
+    if (!data || !Array.isArray(data.countries)) return { countries: [] };
+    return data;
+  } catch (error) {
+    console.debug('Could not load travel document data:', error);
+    return { countries: [] };
   }
 }
