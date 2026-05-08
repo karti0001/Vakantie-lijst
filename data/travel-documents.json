@@ -35,8 +35,8 @@
       "name": "Duitsland",
       "documents": [
         {
-          "name": "Geen visum vereist",
-          "type": "EU-bestemming",
+          "name": "Paspoort of ID-kaart",
+          "type": "EU-reisdocument",
           "url": "https://europa.eu/youreurope/citizens/travel/entry-exit/eu-citizen/index_nl.htm",
           "warning": "Voor EU-burgers is geen visum vereist; neem wel een geldig paspoort of ID-kaart mee."
         }
@@ -47,8 +47,8 @@
       "name": "Frankrijk",
       "documents": [
         {
-          "name": "Geen visum vereist",
-          "type": "EU-bestemming",
+          "name": "Paspoort of ID-kaart",
+          "type": "EU-reisdocument",
           "url": "https://europa.eu/youreurope/citizens/travel/entry-exit/eu-citizen/index_nl.htm",
           "warning": "Voor EU-burgers is geen visum vereist; neem wel een geldig paspoort of ID-kaart mee."
         }
@@ -59,8 +59,8 @@
       "name": "Spanje",
       "documents": [
         {
-          "name": "Geen visum vereist",
-          "type": "EU-bestemming",
+          "name": "Paspoort of ID-kaart",
+          "type": "EU-reisdocument",
           "url": "https://europa.eu/youreurope/citizens/travel/entry-exit/eu-citizen/index_nl.htm",
           "warning": "Voor EU-burgers is geen visum vereist; neem wel een geldig paspoort of ID-kaart mee."
         }

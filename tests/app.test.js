@@ -273,7 +273,7 @@ describe('app integration', () => {
     updatedSelect.value = 'de';
     updatedSelect.dispatchEvent(new Event('change', { bubbles: true }));
     const section = root.querySelector('.travel-documents');
-    expect(section.textContent).toContain('Geen visum vereist');
+    expect(section.textContent).toContain('geen visum vereist');
     expect(section.textContent).not.toContain('e-Visa');
   });
 
