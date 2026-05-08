@@ -35,7 +35,7 @@ describe('seed packing list', () => {
 
   it('does not contain duplicate seed items', () => {
     const allItems = Object.values(seedItems).flat();
-    const normalizedItems = allItems.map((item) => item.toLocaleLowerCase('nl-NL'));
+    const normalizedItems = allItems.map((item) => item.toLowerCase());
 
     expect(new Set(normalizedItems).size).toBe(normalizedItems.length);
   });
