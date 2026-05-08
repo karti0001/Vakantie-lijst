@@ -240,6 +240,21 @@ describe('app integration', () => {
     expect(section.textContent).toContain('Nog geen bestemming gekozen');
   });
 
+  it('includes the requested destination countries', async () => {
+    const { root } = await mount();
+    const optionText = Array.from(root.querySelector('#destination-country').options)
+      .map((option) => option.textContent);
+
+    expect(optionText).toEqual(expect.arrayContaining([
+      'Indonesië',
+      'Japan',
+      'Mexico',
+      'Curaçao',
+      'Bonaire',
+      'St. Maarten',
+    ]));
+  });
+
   it('shows official travel documents for the selected destination country', async () => {
     const { root, storage } = await mount();
     const select = root.querySelector('#destination-country');

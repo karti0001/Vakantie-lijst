@@ -31,6 +31,78 @@
       ]
     },
     {
+      "code": "id",
+      "name": "Indonesië",
+      "documents": [
+        {
+          "name": "Paspoort",
+          "type": "Reisdocument",
+          "url": "https://www.nederlandwereldwijd.nl/reisadvies/indonesie",
+          "warning": "Controleer het actuele reisadvies en eventuele visumvereisten ruim voor vertrek."
+        }
+      ]
+    },
+    {
+      "code": "jp",
+      "name": "Japan",
+      "documents": [
+        {
+          "name": "Paspoort",
+          "type": "Reisdocument",
+          "url": "https://www.nederlandwereldwijd.nl/reisadvies/japan",
+          "warning": "Controleer het actuele reisadvies en de geldigheid van je paspoort ruim voor vertrek."
+        }
+      ]
+    },
+    {
+      "code": "mx",
+      "name": "Mexico",
+      "documents": [
+        {
+          "name": "Paspoort",
+          "type": "Reisdocument",
+          "url": "https://www.nederlandwereldwijd.nl/reisadvies/mexico",
+          "warning": "Controleer het actuele reisadvies en de geldigheid van je paspoort ruim voor vertrek."
+        }
+      ]
+    },
+    {
+      "code": "cw",
+      "name": "Curaçao",
+      "documents": [
+        {
+          "name": "Paspoort",
+          "type": "Reisdocument",
+          "url": "https://www.nederlandwereldwijd.nl/reisadvies/curacao",
+          "warning": "Controleer het actuele reisadvies en de geldigheid van je paspoort ruim voor vertrek."
+        }
+      ]
+    },
+    {
+      "code": "bq",
+      "name": "Bonaire",
+      "documents": [
+        {
+          "name": "Paspoort",
+          "type": "Reisdocument",
+          "url": "https://www.nederlandwereldwijd.nl/reisadvies/bonaire",
+          "warning": "Controleer het actuele reisadvies en de geldigheid van je paspoort ruim voor vertrek."
+        }
+      ]
+    },
+    {
+      "code": "sx",
+      "name": "St. Maarten",
+      "documents": [
+        {
+          "name": "Paspoort",
+          "type": "Reisdocument",
+          "url": "https://www.nederlandwereldwijd.nl/reisadvies/sint-maarten",
+          "warning": "Controleer het actuele reisadvies en de geldigheid van je paspoort ruim voor vertrek."
+        }
+      ]
+    },
+    {
       "code": "de",
       "name": "Duitsland",
       "documents": [
