@@ -38,7 +38,12 @@ describe('seed packing list', () => {
 
   it('does not contain duplicate seed items', () => {
     const allItems = Object.values(seedItems).flat();
-    const normalizedItems = allItems.map((item) => item.toLowerCase());
+    const normalizedItems = allItems.map((item) => item
+      .trim()
+      .toLowerCase()
+      .replace(/[^\p{L}\p{N}]+/gu, ' ')
+      .replace(/\s+/g, ' ')
+      .trim());
 
     expect(new Set(normalizedItems).size).toBe(normalizedItems.length);
   });
