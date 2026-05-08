@@ -17,7 +17,10 @@ describe('seed packing list', () => {
       'UV shirt + broekje',
     ]));
     expect(seedItems.toiletartikelen).toEqual(expect.arrayContaining([
-      'tandenstokers / flos / gummetjes / raggers',
+      'tandenstokers',
+      'flos',
+      'gummetjes',
+      'raggers',
       'muggenspul DEET',
       'conditioner',
     ]));

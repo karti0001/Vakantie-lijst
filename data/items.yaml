@@ -41,7 +41,8 @@ kleding:
   - t-shirts
   - sport elastieken
   - strandjurk
-  - rokken kort + lang
+  - rokken kort
+  - rokken lang
   - sarong
   - sokken
   - slaap hemdje
@@ -71,7 +72,10 @@ toiletartikelen:
   - tandenborstels
   - tandpasta
   - elektrische tandenborstel + lader
-  - tandenstokers / flos / gummetjes / raggers
+  - tandenstokers
+  - flos
+  - gummetjes
+  - raggers
   - invisible smile
   - elastiekjes beugel
   - doucheschuim
@@ -83,7 +87,8 @@ toiletartikelen:
   - handzeep
   - bodylotion
   - dagcreme
-  - oogcreme littekencreme
+  - oogcreme
+  - littekencreme
   - eczeemcreme
   - luchtjes
   - bruiningscreme + handschoen
@@ -129,7 +134,7 @@ toiletartikelen:
   - pijnstillers
   - diclofenac
   - tramadol
-  - puffers cora
+  - puffers Cora
   - puffer Pru
   - diarree remmers
   - stoelgang tabletten
