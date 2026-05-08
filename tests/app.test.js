@@ -19,29 +19,29 @@ import { encodeSharePayload } from '../src/share.js';
 const STYLES = readFileSync('styles.css', 'utf8');
 const ANIMATION_FALLBACK_MS = 1200;
 
-const YAML = `documents:
+const YAML = `documenten:
   - passport
-clothing:
+kleding:
   - socks
-toiletries:
+toiletartikelen:
   - umbrella
-electronics:
+elektronica:
   - laptop
-pre-departure:
+voor-vertrek:
   - water plants
 `;
 
-const MANY_UNCHECKED_YAML = `documents:
+const MANY_UNCHECKED_YAML = `documenten:
   - passport
   - boarding pass
-clothing:
+kleding:
   - socks
   - jacket
-toiletries:
+toiletartikelen:
   - umbrella
-electronics:
+elektronica:
   - laptop
-pre-departure:
+voor-vertrek:
   - water plants
 `;
 
@@ -60,10 +60,10 @@ function memStorage() {
 async function mount(storage = memStorage(), locationHash = '', yaml = YAML) {
   // Mirror the document-level attributes from index.html so accessibility
   // checks see the same surface as production.
-  document.documentElement.lang = 'en';
+  document.documentElement.lang = 'nl';
   if (!document.querySelector('title')) {
     const t = document.createElement('title');
-    t.textContent = 'Travel Prep — Packing List';
+    t.textContent = 'Vakantie-lijst';
     document.head.appendChild(t);
   }
   document.body.innerHTML = '<main id="app"></main>';
@@ -99,7 +99,7 @@ describe('app integration', () => {
 
     expect(root.querySelector('.list-electronics').textContent).toContain('kindle');
     // Custom items expose a remove button
-    expect(root.querySelector('[aria-label="Remove kindle"]')).toBeTruthy();
+    expect(root.querySelector('[aria-label="Verwijder kindle"]')).toBeTruthy();
   });
 
   it('does not add empty or duplicate items', async () => {
@@ -208,7 +208,7 @@ describe('app integration', () => {
 
     const unchecked = root.querySelector('.list-unchecked');
     expect(unchecked).toBeTruthy();
-    expect(unchecked.querySelector('h2').textContent).toContain('Unchecked items');
+    expect(unchecked.querySelector('h2').textContent).toContain('Niet-ingepakte items');
     expect(unchecked.textContent).not.toContain('passport');
     expect(unchecked.textContent).toContain('socks');
   });
@@ -320,7 +320,7 @@ describe('app integration', () => {
     const list = unchecked.querySelector('.item-list');
 
     expect(toggle.getAttribute('aria-expanded')).toBe('false');
-    expect(toggle.textContent).toContain('Show 7 items');
+    expect(toggle.textContent).toContain('Toon 7 items');
     expect(list.hidden).toBe(true);
     expect(getComputedStyle(list).display).toBe('none');
 
@@ -337,7 +337,7 @@ describe('app integration', () => {
 
     root.querySelector('.check-all-btn').click();
     const unchecked = root.querySelector('.list-unchecked');
-    expect(unchecked.textContent).toContain('Everything is packed');
+    expect(unchecked.textContent).toContain('Alles is ingepakt');
     expect(unchecked.querySelector('.item')).toBeNull();
   });
 
@@ -374,16 +374,16 @@ describe('app integration', () => {
     const { root } = await mount();
     const footer = root.querySelector('.app-footer');
     expect(footer).toBeTruthy();
-    expect(footer.textContent).toContain('Travel Prep');
+    expect(footer.textContent).toContain('Vakantie-lijst');
   });
 
   it('renders a footer note about browser storage and mobile PWA install', async () => {
     const { root } = await mount();
     const note = root.querySelector('.app-footer .storage-note');
     expect(note).toBeTruthy();
-    expect(note.textContent).toContain('stored in this browser');
-    expect(note.textContent).toContain('lost if cache storage is cleared');
-    expect(note.textContent).toContain('install Travel Prep as a PWA');
+    expect(note.textContent).toContain('in deze browser opgeslagen');
+    expect(note.textContent).toContain('verloren als de cacheopslag wordt gewist');
+    expect(note.textContent).toContain('Installeer Vakantie-lijst op mobiel als PWA');
   });
 
   it('renders a footer with a real commit hash link when buildId is provided', async () => {
@@ -449,11 +449,11 @@ describe('app integration', () => {
 
   // ----- Share / Import -------------------------------------------------------
 
-  it('renders a "Share list" button in the controls', async () => {
+  it('renders a "Lijst delen" button in the controls', async () => {
     const { root } = await mount();
     const btn = root.querySelector('.share-btn');
     expect(btn).toBeTruthy();
-    expect(btn.textContent).toContain('Share list');
+    expect(btn.textContent).toContain('Lijst delen');
   });
 
   it('clicking the share button opens a share dialog', async () => {
@@ -461,7 +461,7 @@ describe('app integration', () => {
     root.querySelector('.share-btn').click();
     const overlay = document.body.querySelector('.modal-overlay');
     expect(overlay).toBeTruthy();
-    expect(overlay.querySelector('.modal-title').textContent).toContain('Share');
+    expect(overlay.querySelector('.modal-title').textContent).toContain('Deel');
     expect(overlay.querySelector('.share-url-input')).toBeTruthy();
     expect(overlay.querySelector('.share-copy-btn')).toBeTruthy();
     // Clean up
@@ -491,7 +491,7 @@ describe('app integration', () => {
     await mount(memStorage(), hash);
     const overlay = document.body.querySelector('.modal-overlay');
     expect(overlay).toBeTruthy();
-    expect(overlay.querySelector('#import-dialog-title').textContent).toContain('Import');
+    expect(overlay.querySelector('#import-dialog-title').textContent).toContain('importeren');
     expect(overlay.textContent).toContain('kindle');
     expect(overlay.textContent).toContain('travel pillow');
     // Clean up
@@ -507,7 +507,7 @@ describe('app integration', () => {
     const hash = '#share=' + encodeSharePayload(sharedItems);
     await mount(memStorage(), hash);
     const overlay = document.body.querySelector('.modal-overlay');
-    expect(overlay.textContent).toContain('passport (already in your list)');
+    expect(overlay.textContent).toContain('passport (staat al in je lijst)');
     // kindle is new, so it should appear as a selectable checkbox
     const newCbs = Array.from(overlay.querySelectorAll('.import-item input[type="checkbox"]:not(:disabled)'));
     expect(newCbs.map((cb) => cb.dataset.name)).toContain('kindle');
@@ -523,7 +523,7 @@ describe('app integration', () => {
     const hash = '#share=' + encodeSharePayload(sharedItems);
     const { root } = await mount(memStorage(), hash);
     const overlay = document.body.querySelector('.modal-overlay');
-    // Both items should be pre-checked; click Import selected.
+    // Both items should be pre-checked; click the import button.
     overlay.querySelector('.modal-import-btn').click();
     expect(document.body.querySelector('.modal-overlay')).toBeNull();
     expect(root.querySelector('.list-electronics').textContent).toContain('kindle');
@@ -549,7 +549,7 @@ describe('app integration', () => {
     const hash = '#share=' + encodeSharePayload(sharedItems);
     await mount(memStorage(), hash);
     const overlay = document.body.querySelector('.modal-overlay');
-    expect(overlay.textContent).toContain('already in your list');
+    expect(overlay.textContent).toContain('staan al in je lijst');
     expect(overlay.querySelector('.modal-import-btn')).toBeNull();
     // Clean up
     overlay.remove();

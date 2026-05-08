@@ -63,8 +63,16 @@ export function mergeDefaults(defaults, existing) {
 
   /** @type {Array<'documents'|'clothing'|'toiletries'|'electronics'|'pre-departure'>} */
   const cats = ['documents', 'clothing', 'toiletries', 'electronics', 'pre-departure'];
+  const yamlKeys = {
+    documents: ['documents', 'documenten'],
+    clothing: ['clothing', 'kleding'],
+    toiletries: ['toiletries', 'toiletartikelen'],
+    electronics: ['electronics', 'elektronica'],
+    'pre-departure': ['pre-departure', 'voor-vertrek'],
+  };
   for (const cat of cats) {
-    for (const name of defaults[cat] ?? []) {
+    const names = yamlKeys[cat].flatMap((key) => defaults[key] ?? []);
+    for (const name of names) {
       const key = `${cat}::${name.toLowerCase()}`;
       const prev = existingByKey.get(key);
       next.items.push({

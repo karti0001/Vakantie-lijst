@@ -12,11 +12,11 @@ import { buildShareUrl, readShareFromHash } from './share.js';
 
 const CATEGORIES = /** @type {const} */ (['documents', 'clothing', 'toiletries', 'electronics', 'pre-departure']);
 const CATEGORY_LABELS = {
-  'documents': 'Documents',
-  'clothing': 'Clothing',
-  'toiletries': 'Toiletries',
-  'electronics': 'Electronics',
-  'pre-departure': 'Pre-departure',
+  'documents': 'Documenten',
+  'clothing': 'Kleding',
+  'toiletries': 'Toiletartikelen',
+  'electronics': 'Elektronica',
+  'pre-departure': 'Voor vertrek',
 };
 const UNCHECKED_AUTO_COLLAPSE_THRESHOLD = 5;
 
@@ -86,8 +86,8 @@ export async function initApp(root, opts = {}) {
     const header = document.createElement('header');
     header.className = 'app-header';
     header.innerHTML = `
-      <h1>🧳 Travel Prep</h1>
-      <p class="tagline">Your friendly packing companion</p>
+      <h1>🧳 Vakantie-lijst</h1>
+      <p class="tagline">Je vriendelijke hulp bij het inpakken</p>
     `;
     const controls = document.createElement('div');
     controls.className = 'controls';
@@ -103,33 +103,33 @@ export async function initApp(root, opts = {}) {
     suitcase.className = 'suitcase';
     suitcase.id = 'suitcase';
     suitcase.setAttribute('aria-live', 'polite');
-    suitcase.setAttribute('aria-label', 'Suitcase');
+    suitcase.setAttribute('aria-label', 'Koffer');
     const checkedCount = state.items.filter((i) => i.checked).length;
     suitcase.innerHTML = `
       <div class="suitcase-body" aria-hidden="true">
         <div class="suitcase-handle"></div>
         <div class="suitcase-stripe"></div>
       </div>
-      <p class="suitcase-count"><strong>${checkedCount}</strong> / ${state.items.length} packed</p>
+      <p class="suitcase-count"><strong>${checkedCount}</strong> / ${state.items.length} ingepakt</p>
     `;
     root.appendChild(suitcase);
 
     // Add-item form
     const form = document.createElement('form');
     form.className = 'add-form';
-    form.setAttribute('aria-label', 'Add a new item');
+    form.setAttribute('aria-label', 'Voeg een nieuw item toe');
     form.innerHTML = `
-      <label class="visually-hidden" for="new-item-name">Item name</label>
-      <input id="new-item-name" name="name" type="text" placeholder="Add an item…" required maxlength="80" autocomplete="off" inputmode="text" />
-      <label class="visually-hidden" for="new-item-category">Category</label>
+      <label class="visually-hidden" for="new-item-name">Itemnaam</label>
+      <input id="new-item-name" name="name" type="text" placeholder="Voeg een item toe…" required maxlength="80" autocomplete="off" inputmode="text" />
+      <label class="visually-hidden" for="new-item-category">Categorie</label>
       <select id="new-item-category" name="category">
-          <option value="documents">Documents</option>
-          <option value="clothing">Clothing</option>
-          <option value="toiletries">Toiletries</option>
-          <option value="electronics">Electronics</option>
-          <option value="pre-departure">Pre-departure</option>
+          <option value="documents">Documenten</option>
+          <option value="clothing">Kleding</option>
+          <option value="toiletries">Toiletartikelen</option>
+          <option value="electronics">Elektronica</option>
+          <option value="pre-departure">Voor vertrek</option>
         </select>
-      <button type="submit">Add</button>
+      <button type="submit">Toevoegen</button>
     `;
     const nameInput = /** @type {HTMLInputElement} */ (form.querySelector('#new-item-name'));
     nameInput.addEventListener('input', () => {
@@ -156,7 +156,7 @@ export async function initApp(root, opts = {}) {
     uncheckedSection.setAttribute('aria-labelledby', 'heading-unchecked');
     const uncheckedHeading = document.createElement('h2');
     uncheckedHeading.id = 'heading-unchecked';
-    uncheckedHeading.textContent = 'Unchecked items';
+    uncheckedHeading.textContent = 'Niet-ingepakte items';
     uncheckedSection.appendChild(uncheckedHeading);
 
     const uncheckedItems = state.items.filter((i) => !i.checked);
@@ -177,8 +177,8 @@ export async function initApp(root, opts = {}) {
       const updateUncheckedToggle = () => {
         uncheckedToggle.setAttribute('aria-expanded', String(!uncheckedCollapsed));
         uncheckedToggle.textContent = uncheckedCollapsed
-          ? `Show ${uncheckedItems.length} items`
-          : 'Hide items';
+          ? `Toon ${uncheckedItems.length} items`
+          : 'Verberg items';
       };
       uncheckedToggle.addEventListener('click', () => {
         uncheckedCollapsed = !uncheckedCollapsed;
@@ -192,7 +192,7 @@ export async function initApp(root, opts = {}) {
     if (uncheckedItems.length === 0) {
       const empty = document.createElement('li');
       empty.className = 'empty';
-      empty.textContent = 'Everything is packed';
+      empty.textContent = 'Alles is ingepakt';
       uncheckedList.appendChild(empty);
     } else {
       for (const item of uncheckedItems) {
@@ -221,7 +221,7 @@ export async function initApp(root, opts = {}) {
       if (items.length === 0) {
         const empty = document.createElement('li');
         empty.className = 'empty';
-        empty.textContent = 'Nothing here yet — add something above.';
+        empty.textContent = 'Hier staat nog niets — voeg hierboven iets toe.';
         ul.appendChild(empty);
       } else {
         for (const item of items) {
@@ -243,15 +243,15 @@ export async function initApp(root, opts = {}) {
       ? `dev`
       : `<a class="commit-link" href="https://github.com/DevSecNinja/travel-prep/commit/${shortHash}" target="_blank" rel="noopener">${shortHash}</a>`;
     footer.innerHTML = `
-      <p>Travel Prep &mdash; Built by <a href="https://github.com/DevSecNinja" target="_blank" rel="noopener">DevSecNinja</a></p>
-      <p class="storage-note">Your list is stored in this browser and will be lost if cache storage is cleared. For mobile, install Travel Prep as a PWA.</p>
+      <p>Vakantie-lijst &mdash; gemaakt door <a href="https://github.com/DevSecNinja" target="_blank" rel="noopener">DevSecNinja</a></p>
+      <p class="storage-note">Je lijst wordt in deze browser opgeslagen en gaat verloren als de cacheopslag wordt gewist. Installeer Vakantie-lijst op mobiel als PWA.</p>
       <span class="commit-sha">${commitContent}</span>
       <div class="github-star">
         <a href="https://github.com/DevSecNinja/travel-prep" target="_blank" rel="noopener" class="github-star-button">
           <span class="github-star-icon">⭐</span>
-          <span id="starCountText">Star on GitHub</span>
+          <span id="starCountText">Ster geven op GitHub</span>
         </a>
-        <span class="github-star-cta">If you find this useful, please star the repo to support! 🧳</span>
+        <span class="github-star-cta">Vind je dit handig? Geef de repo een ster om te steunen! 🧳</span>
       </div>
     `;
     root.appendChild(footer);
@@ -299,7 +299,7 @@ export async function initApp(root, opts = {}) {
   function updateStarCount(count) {
     const el = root.querySelector('#starCountText');
     if (el && count !== undefined) {
-      const plural = count === 1 ? 'star' : 'stars';
+      const plural = count === 1 ? 'ster' : 'sterren';
       el.textContent = `${count.toLocaleString()} ${plural}`;
     }
   }
@@ -308,11 +308,11 @@ export async function initApp(root, opts = {}) {
     const wrap = document.createElement('label');
     wrap.className = 'theme-select';
     wrap.innerHTML = `
-      <span class="visually-hidden">Theme</span>
-      <select aria-label="Theme">
+      <span class="visually-hidden">Thema</span>
+      <select aria-label="Thema">
         <option value="auto">🌗 Auto</option>
-        <option value="light">☀️ Light</option>
-        <option value="dark">🌙 Dark</option>
+        <option value="light">☀️ Licht</option>
+        <option value="dark">🌙 Donker</option>
       </select>
     `;
     const select = /** @type {HTMLSelectElement} */ (wrap.querySelector('select'));
@@ -329,7 +329,7 @@ export async function initApp(root, opts = {}) {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'check-all-btn';
-    btn.textContent = 'Check all';
+    btn.textContent = 'Alles aanvinken';
     btn.addEventListener('click', () => {
       checkAll();
     });
@@ -340,7 +340,7 @@ export async function initApp(root, opts = {}) {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'reset-btn';
-    btn.textContent = 'Uncheck all';
+    btn.textContent = 'Alles uitvinken';
     btn.addEventListener('click', () => {
       uncheckAll();
     });
@@ -351,7 +351,7 @@ export async function initApp(root, opts = {}) {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'share-btn';
-    btn.textContent = '🔗 Share list';
+    btn.textContent = '🔗 Lijst delen';
     btn.addEventListener('click', () => {
       showShareDialog(buildShareUrl(state.items));
     });
@@ -369,14 +369,14 @@ export async function initApp(root, opts = {}) {
     const dialog = document.createElement('div');
     dialog.className = 'modal';
     dialog.innerHTML = `
-      <h2 id="share-dialog-title" class="modal-title">📤 Share your list</h2>
-      <p class="modal-desc">Copy this link and send it to anyone — they can choose which items to add to their own list.</p>
+      <h2 id="share-dialog-title" class="modal-title">📤 Deel je lijst</h2>
+      <p class="modal-desc">Kopieer deze link en stuur hem door — de ontvanger kan kiezen welke items aan de eigen lijst worden toegevoegd.</p>
       <div class="share-url-row">
-        <input class="share-url-input" type="text" readonly aria-label="Shareable link" />
-        <button type="button" class="share-copy-btn">Copy</button>
+        <input class="share-url-input" type="text" readonly aria-label="Deelbare link" />
+        <button type="button" class="share-copy-btn">Kopiëren</button>
       </div>
       <div class="modal-actions">
-        <button type="button" class="modal-close-btn">Done</button>
+        <button type="button" class="modal-close-btn">Klaar</button>
       </div>
     `;
 
@@ -393,8 +393,8 @@ export async function initApp(root, opts = {}) {
         input.select();
         success = document.execCommand('copy');
       }
-      copyBtn.textContent = success ? 'Copied!' : 'Copy failed';
-      setTimeout(() => { copyBtn.textContent = 'Copy'; }, 2000);
+      copyBtn.textContent = success ? 'Gekopieerd!' : 'Kopiëren mislukt';
+      setTimeout(() => { copyBtn.textContent = 'Kopiëren'; }, 2000);
     });
 
     const handleKeyDown = (/** @type {KeyboardEvent} */ e) => {
@@ -442,18 +442,18 @@ export async function initApp(root, opts = {}) {
     const title = document.createElement('h2');
     title.id = 'import-dialog-title';
     title.className = 'modal-title';
-    title.textContent = '📥 Import shared list';
+    title.textContent = '📥 Gedeelde lijst importeren';
     dialog.appendChild(title);
 
     if (newItems.length === 0) {
       const note = document.createElement('p');
       note.className = 'modal-desc';
-      note.textContent = 'All items from this shared list are already in your list.';
+      note.textContent = 'Alle items uit deze gedeelde lijst staan al in je lijst.';
       dialog.appendChild(note);
     } else {
       const desc = document.createElement('p');
       desc.className = 'modal-desc';
-      desc.textContent = 'Select the items you want to add to your list:';
+      desc.textContent = 'Selecteer de items die je aan je lijst wilt toevoegen:';
       dialog.appendChild(desc);
 
       for (const cat of CATEGORIES) {
@@ -496,9 +496,9 @@ export async function initApp(root, opts = {}) {
           cb.type = 'checkbox';
           cb.checked = false;
           cb.disabled = true;
-          cb.setAttribute('aria-label', `${item.name} — already in your list`);
+          cb.setAttribute('aria-label', `${item.name} — staat al in je lijst`);
           const lbl = document.createElement('label');
-          lbl.textContent = `${item.name} (already in your list)`;
+          lbl.textContent = `${item.name} (staat al in je lijst)`;
           li.appendChild(cb);
           li.appendChild(lbl);
           ul.appendChild(li);
@@ -525,7 +525,7 @@ export async function initApp(root, opts = {}) {
     const cancelBtn = document.createElement('button');
     cancelBtn.type = 'button';
     cancelBtn.className = 'modal-cancel-btn';
-    cancelBtn.textContent = 'Cancel';
+    cancelBtn.textContent = 'Annuleren';
     cancelBtn.addEventListener('click', close);
     actions.appendChild(cancelBtn);
 
@@ -533,7 +533,7 @@ export async function initApp(root, opts = {}) {
       const importBtn = document.createElement('button');
       importBtn.type = 'button';
       importBtn.className = 'modal-import-btn';
-      importBtn.textContent = 'Import selected';
+      importBtn.textContent = 'Geselecteerde importeren';
       importBtn.addEventListener('click', () => {
         const checkboxes = /** @type {NodeListOf<HTMLInputElement>} */ (
           dialog.querySelectorAll('.import-item input[type="checkbox"]:checked:not(:disabled)')
@@ -601,7 +601,7 @@ export async function initApp(root, opts = {}) {
       const removeBtn = document.createElement('button');
       removeBtn.type = 'button';
       removeBtn.className = 'remove-btn';
-      removeBtn.setAttribute('aria-label', `Remove ${item.name}`);
+      removeBtn.setAttribute('aria-label', `Verwijder ${item.name}`);
       removeBtn.textContent = '×';
       removeBtn.addEventListener('click', () => removeItem(item.id));
       li.appendChild(removeBtn);

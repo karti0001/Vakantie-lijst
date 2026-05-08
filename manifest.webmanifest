@@ -1,7 +1,7 @@
 {
-  "name": "Travel Prep",
-  "short_name": "Travel Prep",
-  "description": "A friendly, offline-capable packing list for your next trip.",
+  "name": "Vakantie-lijst",
+  "short_name": "Vakantie-lijst",
+  "description": "Een vriendelijke, offline-paklijst voor je volgende reis.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
