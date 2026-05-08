@@ -18,7 +18,7 @@ describe('seed packing list', () => {
     ]));
     expect(seedItems.toiletartikelen).toEqual(expect.arrayContaining([
       'tandenstokers / flos / gummetjes / raggers',
-      'muggenspul deet',
+      'muggenspul DEET',
       'conditioner',
     ]));
     expect(seedItems.elektronica).toEqual(expect.arrayContaining([
