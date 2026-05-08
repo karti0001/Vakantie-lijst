@@ -10,6 +10,7 @@
  *   - axe accessibility scan
  */
 import { readFileSync } from 'node:fs';
+import path from 'node:path';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import axe from 'axe-core';
 import { initApp } from '../src/app.js';
@@ -45,7 +46,9 @@ voor-vertrek:
   - water plants
 `;
 
-const TRAVEL_DOCUMENTS = JSON.parse(readFileSync('data/travel-documents.json', 'utf8'));
+const TRAVEL_DOCUMENTS = JSON.parse(
+  readFileSync(path.resolve('data/travel-documents.json'), 'utf8'),
+);
 
 function memStorage() {
   const map = new Map();
