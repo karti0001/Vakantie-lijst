@@ -1,0 +1,70 @@
+{
+  "countries": [
+    {
+      "code": "us",
+      "name": "Verenigde Staten",
+      "documents": [
+        {
+          "name": "ESTA",
+          "type": "Elektronische reistoestemming",
+          "url": "https://esta.cbp.dhs.gov/",
+          "warning": "Vraag ESTA minimaal 72 uur voor vertrek aan via de officiële website."
+        }
+      ]
+    },
+    {
+      "code": "in",
+      "name": "India",
+      "documents": [
+        {
+          "name": "e-Visa",
+          "type": "Visum",
+          "url": "https://indianvisaonline.gov.in/evisa/",
+          "warning": "Controleer de geldigheid en vraag je visum ruim voor vertrek aan."
+        },
+        {
+          "name": "Vaccinatiebewijs",
+          "type": "Gezondheidsdocument",
+          "url": "https://www.nederlandwereldwijd.nl/reisadvies/india",
+          "warning": "Bekijk het actuele reisadvies voor mogelijke vaccinatie- of gezondheidsvereisten."
+        }
+      ]
+    },
+    {
+      "code": "de",
+      "name": "Duitsland",
+      "documents": [
+        {
+          "name": "Paspoort of ID-kaart",
+          "type": "EU-reisdocument",
+          "url": "https://europa.eu/youreurope/citizens/travel/entry-exit/eu-citizen/index_nl.htm",
+          "warning": "Voor EU-burgers is geen visum vereist; neem wel een geldig paspoort of ID-kaart mee."
+        }
+      ]
+    },
+    {
+      "code": "fr",
+      "name": "Frankrijk",
+      "documents": [
+        {
+          "name": "Paspoort of ID-kaart",
+          "type": "EU-reisdocument",
+          "url": "https://europa.eu/youreurope/citizens/travel/entry-exit/eu-citizen/index_nl.htm",
+          "warning": "Voor EU-burgers is geen visum vereist; neem wel een geldig paspoort of ID-kaart mee."
+        }
+      ]
+    },
+    {
+      "code": "es",
+      "name": "Spanje",
+      "documents": [
+        {
+          "name": "Paspoort of ID-kaart",
+          "type": "EU-reisdocument",
+          "url": "https://europa.eu/youreurope/citizens/travel/entry-exit/eu-citizen/index_nl.htm",
+          "warning": "Voor EU-burgers is geen visum vereist; neem wel een geldig paspoort of ID-kaart mee."
+        }
+      ]
+    }
+  ]
+}

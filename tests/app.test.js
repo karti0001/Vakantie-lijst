@@ -10,6 +10,7 @@
  *   - axe accessibility scan
  */
 import { readFileSync } from 'node:fs';
+import path from 'node:path';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import axe from 'axe-core';
 import { initApp } from '../src/app.js';
@@ -45,6 +46,10 @@ voor-vertrek:
   - water plants
 `;
 
+const TRAVEL_DOCUMENTS = JSON.parse(
+  readFileSync(path.resolve('data/travel-documents.json'), 'utf8'),
+);
+
 function memStorage() {
   const map = new Map();
   return {
@@ -57,7 +62,12 @@ function memStorage() {
   };
 }
 
-async function mount(storage = memStorage(), locationHash = '', yaml = YAML) {
+async function mount(
+  storage = memStorage(),
+  locationHash = '',
+  yaml = YAML,
+  travelDocuments = TRAVEL_DOCUMENTS,
+) {
   // Mirror the document-level attributes from index.html so accessibility
   // checks see the same surface as production.
   document.documentElement.lang = 'nl';
@@ -71,6 +81,7 @@ async function mount(storage = memStorage(), locationHash = '', yaml = YAML) {
   await initApp(root, {
     storage,
     fetchYaml: async () => yaml,
+    fetchTravelDocuments: async () => travelDocuments,
     locationHash,
   });
   return { root, storage };
@@ -218,6 +229,52 @@ describe('app integration', () => {
     expect(JSON.parse(storage.getItem(STORAGE_KEY)).tripType).toBe('business');
     const { root } = await mount(storage);
     expect(root.querySelector('select[aria-label="Reissoort"]').value).toBe('business');
+  });
+
+  it('renders the travel documents destination selector on mount', async () => {
+    const { root } = await mount();
+    const section = root.querySelector('.travel-documents');
+    expect(section).toBeTruthy();
+    expect(section.querySelector('h2').textContent).toContain('Reisdocumenten');
+    expect(section.querySelector('#destination-country')).toBeTruthy();
+    expect(section.textContent).toContain('Nog geen bestemming gekozen');
+  });
+
+  it('shows official travel documents for the selected destination country', async () => {
+    const { root, storage } = await mount();
+    const select = root.querySelector('#destination-country');
+    expect(select).toBeTruthy();
+    expect(Array.from(select.options).map((option) => option.textContent))
+      .toContain('Verenigde Staten');
+
+    select.value = 'us';
+    select.dispatchEvent(new Event('change', { bubbles: true }));
+
+    const section = root.querySelector('.travel-documents');
+    expect(section.textContent).toContain('Vereist voor Verenigde Staten');
+    expect(section.textContent).toContain('ESTA');
+    expect(section.textContent).toContain('minimaal 72 uur');
+    const link = section.querySelector('.travel-document-item a');
+    expect(link.href).toBe('https://esta.cbp.dhs.gov/');
+    expect(link.rel).toBe('noopener noreferrer');
+    expect(JSON.parse(storage.getItem(STORAGE_KEY)).destinationCountry).toBe('us');
+  });
+
+  it('updates the required document list when the destination changes', async () => {
+    const { root } = await mount();
+    const select = root.querySelector('#destination-country');
+
+    select.value = 'in';
+    select.dispatchEvent(new Event('change', { bubbles: true }));
+    expect(root.querySelector('.travel-documents').textContent).toContain('e-Visa');
+    expect(root.querySelector('.travel-documents').textContent).toContain('Vaccinatiebewijs');
+
+    const updatedSelect = root.querySelector('#destination-country');
+    updatedSelect.value = 'de';
+    updatedSelect.dispatchEvent(new Event('change', { bubbles: true }));
+    const section = root.querySelector('.travel-documents');
+    expect(section.textContent).toContain('geen visum vereist');
+    expect(section.textContent).not.toContain('e-Visa');
   });
 
   it('shows unchecked items in a dedicated section', async () => {
@@ -413,6 +470,7 @@ describe('app integration', () => {
     await initApp(r, {
       storage: memStorage(),
       fetchYaml: async () => YAML,
+      fetchTravelDocuments: async () => TRAVEL_DOCUMENTS,
       buildId: 'abc123def456-20240101120000',
     });
     const footer = r.querySelector('.app-footer');
