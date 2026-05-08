@@ -5,7 +5,8 @@
  * {
  *   version: 1,
  *   items: [{ id, name, category: 'documents'|'clothing'|'toiletries'|'electronics'|'pre-departure', custom: boolean, checked: boolean }],
- *   theme: 'auto' | 'light' | 'dark'
+ *   theme: 'auto' | 'light' | 'dark',
+ *   tripType: 'private' | 'business'
  * }
  */
 
@@ -13,7 +14,7 @@ export const STORAGE_KEY = 'travel-prep:state:v2';
 
 /**
  * @typedef {{ id: string, name: string, category: 'documents' | 'clothing' | 'toiletries' | 'electronics' | 'pre-departure', custom: boolean, checked: boolean }} Item
- * @typedef {{ version: 1, items: Item[], theme: 'auto'|'light'|'dark' }} State
+ * @typedef {{ version: 1, items: Item[], theme: 'auto'|'light'|'dark', tripType: 'private'|'business' }} State
  */
 
 /** @returns {State | null} */
@@ -52,6 +53,7 @@ export function mergeDefaults(defaults, existing) {
     version: 1,
     items: [],
     theme: existing?.theme ?? 'auto',
+    tripType: existing?.tripType ?? 'private',
   };
 
   const existingByKey = new Map();

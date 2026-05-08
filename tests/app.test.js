@@ -199,6 +199,27 @@ describe('app integration', () => {
     expect(saved.items.every((i) => i.checked)).toBe(true);
   });
 
+  it('lets the user choose between a private and business trip', async () => {
+    const storage = memStorage();
+    {
+      const { root } = await mount(storage);
+      const select = root.querySelector('select[aria-label="Reissoort"]');
+      expect(select).toBeTruthy();
+      expect(Array.from(select.options).map((option) => option.textContent)).toEqual([
+        '🏖️ Privé reis',
+        '💼 Zakelijke reis',
+      ]);
+      expect(select.value).toBe('private');
+
+      select.value = 'business';
+      select.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+
+    expect(JSON.parse(storage.getItem(STORAGE_KEY)).tripType).toBe('business');
+    const { root } = await mount(storage);
+    expect(root.querySelector('select[aria-label="Reissoort"]').value).toBe('business');
+  });
+
   it('shows unchecked items in a dedicated section', async () => {
     const { root } = await mount();
     const cb = root.querySelector('.list-documents .item input[type="checkbox"]');

@@ -57,6 +57,7 @@ A single key, `travel-prep:state:v2`, holds:
 {
   "version": 1,
   "theme": "auto" | "light" | "dark",
+  "tripType": "private" | "business",
   "items": [
     { "id": "uuid", "name": "passport", "category": "documents",
       "custom": false, "checked": false }
