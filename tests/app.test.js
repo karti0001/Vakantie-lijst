@@ -45,52 +45,7 @@ voor-vertrek:
   - water plants
 `;
 
-const TRAVEL_DOCUMENTS = {
-  countries: [
-    {
-      code: 'us',
-      name: 'Verenigde Staten',
-      documents: [
-        {
-          name: 'ESTA',
-          type: 'Elektronische reistoestemming',
-          url: 'https://esta.cbp.dhs.gov/',
-          warning: 'Vraag ESTA minimaal 72 uur voor vertrek aan via de officiële website.',
-        },
-      ],
-    },
-    {
-      code: 'in',
-      name: 'India',
-      documents: [
-        {
-          name: 'e-Visa',
-          type: 'Visum',
-          url: 'https://indianvisaonline.gov.in/evisa/',
-          warning: 'Vraag je visum ruim voor vertrek aan.',
-        },
-        {
-          name: 'Vaccinatiebewijs',
-          type: 'Gezondheidsdocument',
-          url: 'https://www.nederlandwereldwijd.nl/reisadvies/india',
-          warning: 'Controleer actuele gezondheidsvereisten.',
-        },
-      ],
-    },
-    {
-      code: 'de',
-      name: 'Duitsland',
-      documents: [
-        {
-          name: 'Geen visum vereist',
-          type: 'EU-bestemming',
-          url: 'https://europa.eu/youreurope/citizens/travel/entry-exit/eu-citizen/index_nl.htm',
-          warning: 'Voor EU-burgers is geen visum vereist.',
-        },
-      ],
-    },
-  ],
-};
+const TRAVEL_DOCUMENTS = JSON.parse(readFileSync('data/travel-documents.json', 'utf8'));
 
 function memStorage() {
   const map = new Map();
@@ -289,7 +244,7 @@ describe('app integration', () => {
     expect(section.textContent).toContain('minimaal 72 uur');
     const link = section.querySelector('.travel-document-item a');
     expect(link.href).toBe('https://esta.cbp.dhs.gov/');
-    expect(link.rel).toBe('noopener');
+    expect(link.rel).toBe('noopener noreferrer');
     expect(JSON.parse(storage.getItem(STORAGE_KEY)).destinationCountry).toBe('us');
   });
 

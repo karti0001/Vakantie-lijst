@@ -475,7 +475,7 @@ export async function initApp(root, opts = {}) {
           const link = document.createElement('a');
           link.href = doc.url;
           link.target = '_blank';
-          link.rel = 'noopener';
+          link.rel = 'noopener noreferrer';
           link.textContent = 'Officiële aanvraag';
           item.appendChild(link);
         }
