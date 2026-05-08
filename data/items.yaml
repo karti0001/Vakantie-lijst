@@ -1,81 +1,81 @@
 # Default packing list seed data.
-# Five categories: documents, clothing, toiletries, electronics, pre-departure.
-# Users can add their own items in-app; those are stored in the browser only.
-documents:
-  - passport
-  - visa / esta
-  - arrival card
-  - wallet
+# Vijf categorieën: documenten, kleding, toiletartikelen, elektronica, voor vertrek.
+# Gebruikers kunnen zelf items toevoegen in de app; die worden alleen in de browser opgeslagen.
+documenten:
+  - paspoort
+  - visum / esta
+  - aankomstkaart
+  - portemonnee
   - pen
-  - ns business card
-  - work badge
-clothing:
-  - socks
-  - underwear
-  - cap
-  - outdoor slippers
-  - bath slippers
-  - beanie
-  - belt
-  - scarf
+  - ns-businesscard
+  - werkpas
+kleding:
+  - sokken
+  - ondergoed
+  - pet
+  - buitenslippers
+  - badslippers
+  - muts
+  - riem
+  - sjaal
   - vest
-  - swim shorts
-  - umbrella
-  - travel pillow
-  - sleep mask
-  - ear protection
-  - lightweight bag
-  - watch for swimming pool
-toiletries:
-  - toothbrush
-  - tooth paste
-  - toothbrush head
-  - beard trimmer
-  - nose trimmer
-  - hand sanitizer
+  - zwembroek
+  - paraplu
+  - reiskussen
+  - slaapmasker
+  - gehoorbescherming
+  - lichte tas
+  - horloge voor zwembad
+toiletartikelen:
+  - tandenborstel
+  - tandpasta
+  - opzetborstel
+  - baardtrimmer
+  - neustrimmer
+  - handdesinfecterend middel
   - tissues
-  - sunscreen
-  - chewing gum
-  - nasal spray
-  - wet wipes
-  - nail clippers
-  - lip balm
-  - hand cream
-  - mosquito spray
-  - hay fever pills
-  - face masks
-  - toiletry bag
-electronics:
+  - zonnebrandcrème
+  - kauwgom
+  - neusspray
+  - vochtige doekjes
+  - nagelknipper
+  - lippenbalsem
+  - handcrème
+  - muggenspray
+  - hooikoortspillen
+  - mondkapjes
+  - toilettas
+elektronica:
   - ipad
   - laptop
   - airpods
   - airtag
-  - usb cable
-  - lightning to usb cable
-  - battery pack
-  - airfly infotainment adapter
-  - portable keyboard
+  - usb-kabel
+  - lightning-naar-usb-kabel
+  - powerbank
+  - airfly-infotainmentadapter
+  - draagbaar toetsenbord
   - dongle
-  - large charger
-  - apple watch charger
-  - oral-b toothbrush charger
-  - us/uk power adapter
-  - surface power adapter
-  - large lens cloth
-  - nanopresso espresso maker
-pre-departure:
-  - home assistant in vacation mode
-  - empty trash
-  - unplug everything
-  - water plants
-  - clean coffee machine
-  - turn down thermostat
-  - shut down pc
-  - empty or run dishwasher
-  - charge devices to full
-  - register for airport security
-  - books and movies downloaded
-  - expenses filed
-  - open ventilation grilles
-  - empty laptop bag
-  - refill water bottle at lounge
+  - grote oplader
+  - apple watch-oplader
+  - oral-b tandenborsteloplader
+  - us/uk-stekkeradapter
+  - surface-stroomadapter
+  - grote lensdoek
+  - nanopresso-espressomaker
+voor-vertrek:
+  - home assistant in vakantiemodus
+  - prullenbak legen
+  - alles uit het stopcontact
+  - planten water geven
+  - koffiemachine schoonmaken
+  - thermostaat lager zetten
+  - pc afsluiten
+  - vaatwasser legen of laten draaien
+  - apparaten volledig opladen
+  - aanmelden voor luchthavenbeveiliging
+  - boeken en films downloaden
+  - onkosten indienen
+  - ventilatieroosters openzetten
+  - laptoptas leegmaken
+  - waterfles vullen in de lounge
