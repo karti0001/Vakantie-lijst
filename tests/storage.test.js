@@ -36,6 +36,46 @@ describe('storage', () => {
     s.setItem(STORAGE_KEY, '{"version":99}');
     expect(loadState(s)).toBeNull();
   });
+
+  it('loads state from a legacy storage key when v2 key is missing', () => {
+    const s = memStorage();
+    const legacyState = {
+      version: 1,
+      theme: 'light',
+      tripType: 'private',
+      items: [
+        { id: 'legacy-1', name: 'paspoort', category: 'documents', custom: false, checked: true },
+      ],
+    };
+    s.setItem('travel-prep:state', JSON.stringify(legacyState));
+
+    expect(loadState(s)).toEqual(legacyState);
+  });
+
+  it('prefers v2 state over legacy storage keys', () => {
+    const s = memStorage();
+    const currentState = {
+      version: 1,
+      theme: 'dark',
+      tripType: 'business',
+      items: [
+        { id: 'v2-1', name: 'company card', category: 'documents', custom: false, checked: false },
+      ],
+    };
+    const legacyState = {
+      version: 1,
+      theme: 'light',
+      tripType: 'private',
+      items: [
+        { id: 'legacy-1', name: 'paspoort', category: 'documents', custom: false, checked: true },
+      ],
+    };
+
+    s.setItem(STORAGE_KEY, JSON.stringify(currentState));
+    s.setItem('travel-prep:state', JSON.stringify(legacyState));
+
+    expect(loadState(s)).toEqual(currentState);
+  });
 });
 
 describe('mergeDefaults', () => {
