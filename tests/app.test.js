@@ -201,6 +201,28 @@ describe('app integration', () => {
     expect(sun.previousElementSibling.checked).toBe(true);
   });
 
+  it('loads list state from the legacy storage key', async () => {
+    const storage = memStorage();
+    storage.setItem('travel-prep:state', JSON.stringify({
+      version: 1,
+      theme: 'auto',
+      tripType: 'private',
+      destinationCountry: '',
+      items: [
+        { id: 'passport', name: 'passport', category: 'documents', custom: false, checked: false },
+        { id: 'socks', name: 'socks', category: 'clothing', custom: false, checked: false },
+        { id: 'umbrella', name: 'umbrella', category: 'toiletries', custom: false, checked: false },
+        { id: 'laptop', name: 'laptop', category: 'electronics', custom: false, checked: false },
+        { id: 'water-plants', name: 'water plants', category: 'pre-departure', custom: false, checked: false },
+        { id: 'camera', name: 'camera', category: 'electronics', custom: true, checked: true },
+      ],
+    }));
+
+    const { root } = await mount(storage);
+    expect(root.textContent).toContain('camera');
+    expect(root.querySelector('.item input[type="checkbox"]:checked')).toBeTruthy();
+  });
+
   it('"Check all" marks every item as checked', async () => {
     const { root, storage } = await mount();
     root.querySelector('.check-all-btn').click();

@@ -12,6 +12,7 @@
  */
 
 export const STORAGE_KEY = 'travel-prep:state:v2';
+const LEGACY_STORAGE_KEYS = ['travel-prep:state:v1', 'travel-prep:state'];
 
 /**
  * @typedef {{ id: string, name: string, category: 'documents' | 'clothing' | 'toiletries' | 'electronics' | 'pre-departure', custom: boolean, checked: boolean }} Item
@@ -20,12 +21,22 @@ export const STORAGE_KEY = 'travel-prep:state:v2';
 
 /** @returns {State | null} */
 export function loadState(storage = globalThis.localStorage) {
-  try {
-    const raw = storage.getItem(STORAGE_KEY);
+  const parseState = (raw) => {
     if (!raw) return null;
     const parsed = JSON.parse(raw);
     if (!parsed || parsed.version !== 1 || !Array.isArray(parsed.items)) return null;
     return parsed;
+  };
+
+  try {
+    const current = parseState(storage.getItem(STORAGE_KEY));
+    if (current) return current;
+
+    for (const legacyKey of LEGACY_STORAGE_KEYS) {
+      const legacy = parseState(storage.getItem(legacyKey));
+      if (legacy) return legacy;
+    }
+    return null;
   } catch {
     return null;
   }
