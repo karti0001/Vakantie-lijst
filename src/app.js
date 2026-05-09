@@ -85,6 +85,7 @@ export async function initApp(root, opts = {}) {
       ? persisted.itemsByTrip
       : null;
   const initialTripType = persisted?.tripType ?? DEFAULT_TRIP_TYPE;
+  const activeTripType = TRIP_TYPES.includes(initialTripType) ? initialTripType : DEFAULT_TRIP_TYPE;
   const itemsByTrip = {
     private: mergeDefaults(
       defaultsByTrip.private,
@@ -103,8 +104,8 @@ export async function initApp(root, opts = {}) {
     version: 1,
     theme: persisted?.theme ?? 'auto',
     destinationCountry: persisted?.destinationCountry ?? '',
-    tripType: TRIP_TYPES.includes(initialTripType) ? initialTripType : DEFAULT_TRIP_TYPE,
-    items: itemsByTrip[TRIP_TYPES.includes(initialTripType) ? initialTripType : DEFAULT_TRIP_TYPE],
+    tripType: activeTripType,
+    items: itemsByTrip[activeTripType],
     itemsByTrip,
   };
   saveAppState();
