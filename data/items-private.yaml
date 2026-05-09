@@ -1,5 +1,6 @@
 # Default packing list seed data for privé reis.
-# Vijf categorieën: documenten, kleding, toiletartikelen, elektronica, voor-vertrek.
+# Negen categorieën: documenten, kleding, toiletartikelen, medicijnen, elektronica,
+#                    strand, eten, handbagage, voor-vertrek.
 documenten:
   - paspoort
   - rijbewijs
@@ -24,8 +25,6 @@ kleding:
   - zonnebril op sterkte
   - waterdicht heuptasje
   - waterdichte rugtas zwart
-  - strandtas
-  - toilettasje strand
   - opvouwbaar tasje
   - onderbroek met pijpjes
   - ondergoed
@@ -43,32 +42,15 @@ kleding:
   - sokken
   - slaap hemdje
   - slaap broekje
-  - badlaken klein en groot
-  - knijpers voor badlaken
-  - badhanddoeken
-  - washandjes
-  - badpak
-  - bikini's
-  - tuniek over je badkleding
-  - uv shirt + broekje
-  - snorkels + bril
-  - flippers
-  - waterschoentjes
-  - carbijnhaken
-  - waterhangmatjes
-  - opblaaskussen
-  - sportkleding + schoenen
-  - kleine handdoek
   - slippers
   - open schoentjes
   - sneakers
+  - sportkleding + schoenen
   - waslijn
   - wasmiddel
   - knijpers
   - ikea zakjes
   - pedaalemmerzakken
-  - waterfles
-  - waterdrop
   - uitdeel spullen
   - tijdschrift
   - puzzelboekjes
@@ -84,45 +66,25 @@ kleding:
   - afwasmiddel
   - weegschaaltje
   - melkopschuimer
-  - nespresso cupjes
-  - amandelmelk
-  - havermout
-  - speculoos
-  - flavor powder
-  - gepofte spelt
-  - rijstwafels
-  - gedroogd fruit
-  - lotuskoekjes
-  - bami soep
-  - zout
-  - kaneel
-  - kruiden
-  - tuna with a twist
-  - eiwitpoeder
-  - muesli/eiwitrepen
-  - zelf gemaakte snacks/koekjes
-  - tuc
-  - smint
-  - drop
-  - snoep
-  - van kleef
   - shotglaasjes
   - kado vic
-  - skyr
-  - water
 toiletartikelen:
   - tandenstokers/raggers
   - flos
   - oordoppen
-  - diarree remmers
-  - stoelgang tabletten
-  - paracetamol
-  - paracetamol zetpillen
-  - pijnstillers
-  - diclofenac
-  - tramadol
-  - allergiepillen
-  - collageen
+  - tandenborstels
+  - tandpasta
+  - tandenstokers/flos/gummetjes
+  - invisible smile
+  - elastiekjes beugel
+  - doucheschuim
+  - zilvershampoo
+  - handzeep
+  - shampoo
+  - conditioner
+  - borstel
+  - dagcreme
+  - bodylotion
   - aftersun
   - sunblock make-up
   - sunblock olie
@@ -142,16 +104,7 @@ toiletartikelen:
   - scheermesje
   - haarklemmen
   - elastiekjes
-  - tandenborstels
-  - tandpasta
-  - tandenstokers/flos/gummetjes
-  - invisible smile
-  - elastiekjes beugel
-  - doucheschuim
   - scheermesje gezicht
-  - zilvershampoo
-  - handzeep
-  - bodylotion
   - oogcreme littekencreme
   - eczeemcreme
   - luchtjes
@@ -174,30 +127,36 @@ toiletartikelen:
   - zakdoekjes
   - natte washandjes
   - wc bril doekjes
-  - mini deet
-  - anti muggenjeuk
-  - muggenspul deet
-  - dagcreme
-  - shampoo
-  - conditioner
-  - borstel
   - maandverband
   - tampons
   - inlegkruisjes
   - zonnebrandcrème
   - mondpleisters
   - neusklem
+  - contactlenzen
+  - oogpotlood
+  - kleine deo
+  - lippenbalsem
+  - spiegeltje
+medicijnen:
+  - diarree remmers
+  - stoelgang tabletten
+  - paracetamol
+  - paracetamol zetpillen
+  - pijnstillers
+  - diclofenac
+  - tramadol
+  - allergiepillen
+  - collageen
   - melatonine
   - vitaminen
   - maagzuurremmers
   - rennies
   - medicijnen cholesterol
   - leesbril
-  - contactlenzen
-  - oogpotlood
-  - kleine deo
-  - lippenbalsem
-  - spiegeltje
+  - mini deet
+  - anti muggenjeuk
+  - muggenspul deet
 elektronica:
   - AirPods + oplader
   - iPad + oplader
@@ -216,6 +175,74 @@ elektronica:
   - e-readers + oplader
   - telefoonhoesje met touwtje
   - waterdicht telefoonhoesje
+strand:
+  - strandtas
+  - toilettasje strand
+  - badlaken klein en groot
+  - knijpers voor badlaken
+  - badhanddoeken
+  - washandjes
+  - badpak
+  - bikini's
+  - tuniek over je badkleding
+  - uv shirt + broekje
+  - snorkels + bril
+  - flippers
+  - waterschoentjes
+  - carbijnhaken
+  - waterhangmatjes
+  - opblaaskussen
+  - kleine handdoek
+eten:
+  - waterfles
+  - waterdrop
+  - nespresso cupjes
+  - amandelmelk
+  - havermout
+  - speculoos
+  - flavor powder
+  - gepofte spelt
+  - rijstwafels
+  - gedroogd fruit
+  - lotuskoekjes
+  - bami soep
+  - zout
+  - kaneel
+  - kruiden
+  - tuna with a twist
+  - eiwitpoeder
+  - muesli/eiwitrepen
+  - zelf gemaakte snacks/koekjes
+  - tuc
+  - smint
+  - drop
+  - snoep
+  - van kleef
+  - skyr
+  - water
+handbagage:
+  - kleine deo
+  - natte washandjes
+  - lippenbalsem
+  - spiegeltje
+  - oogpotlood
+  - contactlenzen
+  - bril
+  - puzzelboekje
+  - AirPods
+  - iPad
+  - e-reader
+  - smint
+  - melatonine
+  - paracetamol
+  - opladers
+  - zakdoekjes
+  - kussentje
+  - borstel
+  - snoep
+  - rijstwafel
+  - skyr
+  - water
 voor-vertrek:
   - planten water geven
   - kattenbak verschonen
