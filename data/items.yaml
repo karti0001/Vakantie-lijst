@@ -1,218 +1,32 @@
-# Default packing list seed data.
+# Default packing list seed data for zakelijke reis.
 # Vijf categorieën: documenten, kleding, toiletartikelen, elektronica, voor vertrek.
-# Gebruikers kunnen zelf items toevoegen in de app; die worden alleen in de browser opgeslagen.
 documenten:
-  - paspoorten
-  - visum
-  - rijbewijs
-  - creditcard en pasjes ABN ING
-  - zorgpasje
-  - gele boekjes
-  - gezondheidsverklaring
-  - padie duikbrevet
-  - winkelwagenmuntje
+  - paspoort
+  - pasjes
+  - cc
+  - company card
 kleding:
-  - handtas
-  - handbagage tas
-  - kussentjes
-  - oogslaapmasker
-  - nekkussentje
-  - bril
-  - leesbril
-  - zonnebrillen
-  - zonnebril op sterkte
-  - contactlenzen
-  - oordoppen
-  - telefoonhoesje met touwtje
-  - waterdicht telefoonhoesje
-  - waterdicht heuptasje
-  - waterdichte rugtas zwart
-  - strandtas
-  - toilettasje strand
-  - opvouwbaar tasje
-  - onderbroek met pijpjes
-  - ondergoed
+  - onderbroeken
   - bh's
-  - bh clipje
-  - korte broeken
-  - lange broek
-  - lange mouwen
-  - hemdjes
-  - t-shirts
-  - sport elastieken
-  - strandjurk
-  - rokken kort
-  - rokken lang
-  - sarong
+  - t-shirt
+  - overhemd
+  - truitje
   - sokken
-  - slaap hemdje
-  - slaap broekje
-  - badlaken klein en groot
-  - knijpers voor badlaken
-  - badhanddoeken
-  - washandjes
-  - badpak
-  - bikini's
-  - tuniek over je badkleding
-  - UV shirt + broekje
-  - snorkels + bril
-  - flippers
-  - waterschoentjes
-  - carbijnhaken
-  - waterhangmatjes
-  - opblaaskussen
-  - sportkleding + schoenen
-  - kleine handdoek
   - slippers
-  - open schoentjes
-  - sneakers
 toiletartikelen:
-  - föhn
-  - dyson haarstyler
-  - tandenborstels
-  - tandpasta
-  - elektrische tandenborstel + lader
-  - tandenstokers
-  - flos
-  - gummetjes
-  - raggers
-  - invisible smile
-  - elastiekjes beugel
-  - doucheschuim
-  - scheermesje
-  - scheermesje gezicht
-  - zilvershampoo
   - shampoo
   - conditioner
-  - handzeep
-  - bodylotion
-  - dagcreme
-  - oogcreme
-  - littekencreme
-  - eczeemcreme
-  - luchtjes
-  - bruiningscreme + handschoen
-  - micellair water
-  - micellair waterproof
-  - watjes
-  - wattenstaafjes
-  - nagelknipper
-  - nagelriem stokje
-  - nagelvijl klein en groot
-  - nagellak remover
-  - nagellak
-  - spiegel
-  - pincet
-  - haarklemmen
-  - elastiekjes
-  - borstels klein groot
-  - haarspray
-  - haarolie
-  - uitgroeispray
-  - kledingverfrisser
-  - benencreme
-  - deo benen 0,0%
-  - kleine deo
-  - polarwise tubes
-  - talkpoeder
-  - make-up
-  - oogpotlood
-  - maandverband
-  - tampons
-  - inlegkruisjes
-  - aftersun
-  - zonnebrandcrème
-  - sunblock make-up
-  - sunblock olie
-  - sunblock leave-in
-  - sun lippenbalsem
-  - lippenbalsem
-  - purol / lipbalm
-  - pleisters
-  - paracetamol
-  - paracetamol zetpillen
-  - pijnstillers
-  - diclofenac
-  - tramadol
-  - puffers Cora
-  - puffer Pru
-  - diarree remmers
-  - stoelgang tabletten
-  - allergiepillen
-  - collageen
-  - melatonine
-  - vitaminen
-  - maagzuurremmers
-  - rennies
-  - medicijnen cholesterol
-  - mondpleisters
-  - neusklem
-  - mini DEET
-  - muggenspul DEET
-  - anti muggenjeuk
-  - verfrissings doekjes
-  - zakdoekjes
-  - natte washandjes
-  - wc bril doekjes
+  - gezicht creme
+  - tandpasta
+  - tandenborstel
+  - borstel
+  - luchtje
+  - beugel
+  - beugelbakje
+  - medicijnen
 elektronica:
-  - AirPods + oplader
-  - iPad + oplader
-  - telefoons + opladers
-  - horloge + oplader
-  - ventilator + oplader
-  - JBL box + oplader
-  - laptop + oplader
-  - e-readers + oplader
-  - lampjes op rol
-  - wereldstekker
+  - laptop
+  - opladers
+  - powerbank
   - stekkerdoos
-  - vliegenmepper elektrisch
-  - weegschaaltje
-  - melkopschuimer
 voor-vertrek:
-  - waslijn
-  - wasmiddel
-  - knijpers
-  - Ikea zakjes
-  - pedaalemmerzakken
-  - waterfles
-  - water
-  - waterdrop
-  - uitdeel spullen
-  - tijdschrift
-  - puzzelboekjes
-  - potloden
-  - pennen
-  - Yahtzee
-  - B&B vol liefde kaartspel
-  - Catan
-  - The Game
-  - tric trac
-  - theedoek
-  - schuurspons
-  - afwasmiddel
-  - nespresso cupjes
-  - amandelmelk
-  - havermout
-  - speculoos
-  - flavor powder
-  - gepofte spelt
-  - rijstwafels
-  - skyr
-  - gedroogd fruit
-  - lotuskoekjes
-  - bami soep
-  - zout
-  - kaneel
-  - kruiden
-  - tuna with a twist
-  - eiwitpoeder
-  - muesli / eiwitrepen
-  - zelf gemaakte snacks / koekjes
-  - Tuc
-  - Smint
-  - drop
-  - snoep
-  - Van Kleef
-  - shotglaasjes
-  - kado Vic

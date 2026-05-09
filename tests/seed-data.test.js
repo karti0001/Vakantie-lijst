@@ -5,35 +5,41 @@ import { parseYaml } from '../src/yaml.js';
 const seedItems = parseYaml(readFileSync('data/items.yaml', 'utf8'));
 
 describe('seed packing list', () => {
-  it('keeps private-trip items divided over the supported categories', () => {
+  it('keeps business-trip items divided over the supported categories', () => {
     expect(seedItems.documenten).toEqual(expect.arrayContaining([
-      'paspoorten',
-      'visum',
-      'creditcard en pasjes ABN ING',
+      'paspoort',
+      'pasjes',
+      'cc',
+      'company card',
     ]));
     expect(seedItems.kleding).toEqual(expect.arrayContaining([
-      'handbagage tas',
-      'sport elastieken',
-      'UV shirt + broekje',
+      'onderbroeken',
+      "bh's",
+      't-shirt',
+      'overhemd',
+      'truitje',
+      'sokken',
+      'slippers',
     ]));
     expect(seedItems.toiletartikelen).toEqual(expect.arrayContaining([
-      'tandenstokers',
-      'flos',
-      'gummetjes',
-      'raggers',
-      'muggenspul DEET',
+      'shampoo',
       'conditioner',
+      'gezicht creme',
+      'tandpasta',
+      'tandenborstel',
+      'borstel',
+      'luchtje',
+      'beugel',
+      'beugelbakje',
+      'medicijnen',
     ]));
     expect(seedItems.elektronica).toEqual(expect.arrayContaining([
-      'AirPods + oplader',
-      'telefoons + opladers',
-      'laptop + oplader',
+      'laptop',
+      'opladers',
+      'powerbank',
+      'stekkerdoos',
     ]));
-    expect(seedItems['voor-vertrek']).toEqual(expect.arrayContaining([
-      'waterdrop',
-      'B&B vol liefde kaartspel',
-      'nespresso cupjes',
-    ]));
+    expect(seedItems['voor-vertrek']).toEqual([]);
   });
 
   it('does not contain duplicate seed items', () => {
