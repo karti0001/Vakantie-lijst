@@ -268,12 +268,19 @@ voor-vertrek:
     expect(root.textContent).toContain('company card');
     expect(root.textContent).not.toContain('zwemkleding');
 
+    const input = root.querySelector('#new-item-name');
+    const form = root.querySelector('.add-form');
+    input.value = 'camera';
+    form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+    expect(root.textContent).toContain('camera');
+
     const select = root.querySelector('select[aria-label="Reissoort"]');
     select.value = 'private';
     select.dispatchEvent(new Event('change', { bubbles: true }));
 
     expect(root.textContent).toContain('zwemkleding');
     expect(root.textContent).not.toContain('company card');
+    expect(root.textContent).toContain('camera');
   });
 
   it('renders the travel documents destination selector on mount', async () => {

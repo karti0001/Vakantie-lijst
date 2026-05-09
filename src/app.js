@@ -48,13 +48,15 @@ export async function initApp(root, opts = {}) {
     });
   const fetchPrivateYaml =
     opts.fetchPrivateYaml ??
-    (opts.fetchYaml
-      ? fetchYaml
-      : async () => {
-          const res = await fetch('./data/items-private.yaml');
-          if (!res.ok) throw new Error(`Failed to load items-private.yaml: ${res.status}`);
-          return res.text();
-        });
+    (async () => {
+      try {
+        const res = await fetch('./data/items-private.yaml');
+        if (!res.ok) throw new Error(`Failed to load items-private.yaml: ${res.status}`);
+        return res.text();
+      } catch {
+        return fetchYaml();
+      }
+    });
   const fetchTravelDocuments =
     opts.fetchTravelDocuments ??
     (async () => {
