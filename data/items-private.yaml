@@ -1,0 +1,30 @@
+# Default packing list seed data for privé reis.
+# Vijf categorieën: documenten, kleding, toiletartikelen, elektronica, voor vertrek.
+documenten:
+  - paspoort
+  - pasjes
+  - zorgpas
+kleding:
+  - onderbroeken
+  - bh's
+  - t-shirt
+  - jurk
+  - zwemkleding
+  - sokken
+  - slippers
+toiletartikelen:
+  - shampoo
+  - conditioner
+  - zonnebrand
+  - tandpasta
+  - tandenborstel
+  - borstel
+  - aftersun
+  - medicijnen
+elektronica:
+  - telefoon
+  - oplader
+  - oortjes
+  - e-reader
+voor-vertrek:
+  - plantjes water geven

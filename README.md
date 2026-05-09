@@ -9,7 +9,9 @@ train or road trip.
 ## Features
 
 - Five categories — **Documents**, **Clothing**, **Toiletries**, **Electronics**,
-  and **Pre-departure** — seeded from [`data/items.yaml`](./data/items.yaml).
+  and **Pre-departure** — seeded from
+  [`data/items.yaml`](./data/items.yaml) (business) and
+  [`data/items-private.yaml`](./data/items-private.yaml) (private).
 - Choose whether you're packing for a **Private** or **Business** trip.
 - Select a destination country to see configurable travel documents such as
   ESTA, visas, EU no-visa guidance, official application links, and warnings.
@@ -53,7 +55,8 @@ deployed.
 │   ├── app.js               # rendering + interaction logic
 │   ├── storage.js           # localStorage shape + merge helpers
 │   └── yaml.js              # tiny YAML parser
-├── data/items.yaml          # seed packing list
+├── data/items.yaml          # business-trip seed packing list
+├── data/items-private.yaml  # private-trip seed packing list
 ├── data/travel-documents.json # destination travel document mapping
 ├── icons/                   # PWA icons
 ├── tests/                   # vitest + jsdom + axe-core

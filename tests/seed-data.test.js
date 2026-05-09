@@ -3,6 +3,7 @@ import { describe, it, expect } from 'vitest';
 import { parseYaml } from '../src/yaml.js';
 
 const seedItems = parseYaml(readFileSync('data/items.yaml', 'utf8'));
+const privateSeedItems = parseYaml(readFileSync('data/items-private.yaml', 'utf8'));
 
 describe('seed packing list', () => {
   it('keeps business-trip items divided over the supported categories', () => {
@@ -52,5 +53,39 @@ describe('seed packing list', () => {
       .trim());
 
     expect(new Set(normalizedItems).size).toBe(normalizedItems.length);
+  });
+
+  it('keeps private-trip seed items divided over the supported categories', () => {
+    expect(privateSeedItems.documenten).toEqual(expect.arrayContaining([
+      'paspoort',
+      'pasjes',
+      'zorgpas',
+    ]));
+    expect(privateSeedItems.kleding).toEqual(expect.arrayContaining([
+      'onderbroeken',
+      "bh's",
+      't-shirt',
+      'jurk',
+      'zwemkleding',
+      'sokken',
+      'slippers',
+    ]));
+    expect(privateSeedItems.toiletartikelen).toEqual(expect.arrayContaining([
+      'shampoo',
+      'conditioner',
+      'zonnebrand',
+      'tandpasta',
+      'tandenborstel',
+      'borstel',
+      'aftersun',
+      'medicijnen',
+    ]));
+    expect(privateSeedItems.elektronica).toEqual(expect.arrayContaining([
+      'telefoon',
+      'oplader',
+      'oortjes',
+      'e-reader',
+    ]));
+    expect(privateSeedItems['voor-vertrek']).toEqual(expect.arrayContaining(['plantjes water geven']));
   });
 });
