@@ -355,6 +355,17 @@ voor-vertrek:
     expect(JSON.parse(storage.getItem(STORAGE_KEY)).destinationCountry).toBe('us');
   });
 
+  it('uses the updated Indonesia arrival card submission link', async () => {
+    const { root } = await mount();
+    const select = root.querySelector('#destination-country');
+
+    select.value = 'id';
+    select.dispatchEvent(new Event('change', { bubbles: true }));
+
+    const links = Array.from(root.querySelectorAll('.travel-document-item a')).map((link) => link.href);
+    expect(links).toContain('https://allindonesia.imigrasi.go.id/arrival-card-submission/personal-information');
+  });
+
   it('updates the required document list when the destination changes', async () => {
     const { root } = await mount();
     const select = root.querySelector('#destination-country');
