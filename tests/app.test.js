@@ -233,7 +233,7 @@ describe('app integration', () => {
     expect(root.querySelector('select[aria-label="Reissoort"]').value).toBe('business');
   });
 
-  it('shows different seed items for private and business trips', async () => {
+  it('shows separate item lists for private and business trips', async () => {
     const businessYaml = `documenten:
   - company card
 kleding:
@@ -280,6 +280,11 @@ voor-vertrek:
 
     expect(root.textContent).toContain('zwemkleding');
     expect(root.textContent).not.toContain('company card');
+    expect(root.textContent).not.toContain('camera');
+
+    select.value = 'business';
+    select.dispatchEvent(new Event('change', { bubbles: true }));
+    expect(root.textContent).toContain('company card');
     expect(root.textContent).toContain('camera');
   });
 
