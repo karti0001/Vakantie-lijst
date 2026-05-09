@@ -55,6 +55,12 @@ describe('seed packing list', () => {
     expect(new Set(normalizedItems).size).toBe(normalizedItems.length);
   });
 
+  it('contains 223 default private-trip items', () => {
+    const totalItems = Object.values(privateSeedItems).flat().length;
+
+    expect(totalItems).toBe(223);
+  });
+
   it('keeps private-trip seed items divided over the supported categories', () => {
     expect(privateSeedItems.documenten).toEqual(expect.arrayContaining([
       'paspoort',
