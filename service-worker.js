@@ -24,6 +24,7 @@ const APP_SHELL = [
   './src/yaml.js',
   './src/storage.js',
   './data/items.yaml',
+  './data/items-private.yaml',
   './data/travel-documents.json',
   './icons/icon.svg',
   './icons/icon-192.png',
