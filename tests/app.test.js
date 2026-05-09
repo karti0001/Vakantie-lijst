@@ -67,6 +67,7 @@ async function mount(
   locationHash = '',
   yaml = YAML,
   travelDocuments = TRAVEL_DOCUMENTS,
+  privateYaml = yaml,
 ) {
   // Mirror the document-level attributes from index.html so accessibility
   // checks see the same surface as production.
@@ -81,6 +82,7 @@ async function mount(
   await initApp(root, {
     storage,
     fetchYaml: async () => yaml,
+    fetchPrivateYaml: async () => privateYaml,
     fetchTravelDocuments: async () => travelDocuments,
     locationHash,
   });
@@ -229,6 +231,49 @@ describe('app integration', () => {
     expect(JSON.parse(storage.getItem(STORAGE_KEY)).tripType).toBe('business');
     const { root } = await mount(storage);
     expect(root.querySelector('select[aria-label="Reissoort"]').value).toBe('business');
+  });
+
+  it('shows different seed items for private and business trips', async () => {
+    const businessYaml = `documenten:
+  - company card
+kleding:
+  - overhemd
+toiletartikelen:
+  - scheerschuim
+elektronica:
+  - laptop
+voor-vertrek:
+`;
+    const privateYaml = `documenten:
+  - zorgpas
+kleding:
+  - zwemkleding
+toiletartikelen:
+  - zonnebrand
+elektronica:
+  - e-reader
+voor-vertrek:
+`;
+
+    const storage = memStorage();
+    storage.setItem(STORAGE_KEY, JSON.stringify({
+      version: 1,
+      items: [],
+      theme: 'auto',
+      tripType: 'business',
+      destinationCountry: '',
+    }));
+
+    const { root } = await mount(storage, '', businessYaml, TRAVEL_DOCUMENTS, privateYaml);
+    expect(root.textContent).toContain('company card');
+    expect(root.textContent).not.toContain('zwemkleding');
+
+    const select = root.querySelector('select[aria-label="Reissoort"]');
+    select.value = 'private';
+    select.dispatchEvent(new Event('change', { bubbles: true }));
+
+    expect(root.textContent).toContain('zwemkleding');
+    expect(root.textContent).not.toContain('company card');
   });
 
   it('renders the travel documents destination selector on mount', async () => {

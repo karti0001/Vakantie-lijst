@@ -30,6 +30,7 @@ const UNCHECKED_AUTO_COLLAPSE_THRESHOLD = 5;
  * @param {HTMLElement} root
  * @param {object} [opts]
  * @param {() => Promise<string>} [opts.fetchYaml]  - returns YAML text
+ * @param {() => Promise<string>} [opts.fetchPrivateYaml]  - returns YAML text for private trips
  * @param {() => Promise<TravelDocumentData>} [opts.fetchTravelDocuments]
  * @param {Storage} [opts.storage]
  * @param {string} [opts.buildId]  - stamped by deploy workflow
@@ -45,6 +46,15 @@ export async function initApp(root, opts = {}) {
       if (!res.ok) throw new Error(`Failed to load items.yaml: ${res.status}`);
       return res.text();
     });
+  const fetchPrivateYaml =
+    opts.fetchPrivateYaml ??
+    (opts.fetchYaml
+      ? fetchYaml
+      : async () => {
+          const res = await fetch('./data/items-private.yaml');
+          if (!res.ok) throw new Error(`Failed to load items-private.yaml: ${res.status}`);
+          return res.text();
+        });
   const fetchTravelDocuments =
     opts.fetchTravelDocuments ??
     (async () => {
@@ -53,13 +63,18 @@ export async function initApp(root, opts = {}) {
       return res.json();
     });
 
-  const [yamlText, travelDocuments] = await Promise.all([
+  const [yamlText, privateYamlText, travelDocuments] = await Promise.all([
     fetchYaml(),
+    fetchPrivateYaml(),
     loadTravelDocumentData(fetchTravelDocuments),
   ]);
-  const defaults = parseYaml(yamlText);
+  const defaultsByTrip = {
+    business: parseYaml(yamlText),
+    private: parseYaml(privateYamlText),
+  };
+  const persisted = loadState(storage);
   /** @type {State} */
-  let state = mergeDefaults(defaults, loadState(storage));
+  let state = mergeDefaults(defaultsByTrip[persisted?.tripType ?? 'private'], persisted);
   saveState(state, storage);
 
   let uncheckedCollapsed = state.items.filter((i) => !i.checked).length > UNCHECKED_AUTO_COLLAPSE_THRESHOLD;
@@ -354,8 +369,19 @@ export async function initApp(root, opts = {}) {
     const select = /** @type {HTMLSelectElement} */ (wrap.querySelector('select'));
     select.value = state.tripType;
     select.addEventListener('change', () => {
-      state.tripType = /** @type {any} */ (select.value);
+      const nextTripType = /** @type {'private'|'business'} */ (select.value);
+      if (nextTripType === state.tripType) return;
+      const preservedCustomItems = state.items.filter((item) => item.custom);
+      state = {
+        ...state,
+        tripType: nextTripType,
+        items: mergeDefaults(
+          defaultsByTrip[nextTripType],
+          { ...state, tripType: nextTripType, items: preservedCustomItems },
+        ).items,
+      };
       saveState(state, storage);
+      render();
     });
     return wrap;
   }
