@@ -331,6 +331,7 @@ voor-vertrek:
       'Curaçao',
       'Bonaire',
       'St. Maarten',
+      'Wereldwijd (alle landen)',
     ]));
   });
 
@@ -369,6 +370,23 @@ voor-vertrek:
     const section = root.querySelector('.travel-documents');
     expect(section.textContent).toContain('geen visum vereist');
     expect(section.textContent).not.toContain('e-Visa');
+  });
+
+  it('shows the worldwide travel document overview links', async () => {
+    const { root } = await mount();
+    const select = root.querySelector('#destination-country');
+
+    select.value = 'world';
+    select.dispatchEvent(new Event('change', { bubbles: true }));
+
+    const section = root.querySelector('.travel-documents');
+    expect(section.textContent).toContain('Wereldwijd (alle landen)');
+    expect(section.textContent).toContain('Reisadvies per land');
+    const links = Array.from(section.querySelectorAll('.travel-document-item a')).map((link) => link.href);
+    expect(links).toEqual(expect.arrayContaining([
+      'https://www.nederlandwereldwijd.nl/reisadvies',
+      'https://www.nederlandwereldwijd.nl/reizen',
+    ]));
   });
 
   it('shows unchecked items in a dedicated section', async () => {
