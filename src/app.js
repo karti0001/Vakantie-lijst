@@ -13,12 +13,16 @@ import { buildShareUrl, readShareFromHash } from './share.js';
 /** @typedef {{ code: string, name: string, documents: TravelDocument[] }} TravelCountry */
 /** @typedef {{ countries: TravelCountry[] }} TravelDocumentData */
 
-const CATEGORIES = /** @type {const} */ (['documents', 'clothing', 'toiletries', 'electronics', 'pre-departure']);
+const CATEGORIES = /** @type {const} */ (['documents', 'clothing', 'toiletries', 'medicine', 'electronics', 'beach', 'food', 'carry-on', 'pre-departure']);
 const CATEGORY_LABELS = {
   'documents': 'Documenten',
   'clothing': 'Kleding',
   'toiletries': 'Toiletartikelen',
+  'medicine': 'Medicijnen',
   'electronics': 'Elektronica',
+  'beach': 'Strand & water',
+  'food': 'Eten & drinken',
+  'carry-on': 'Handbagage',
   'pre-departure': 'Voor vertrek',
 };
 const UNCHECKED_AUTO_COLLAPSE_THRESHOLD = 5;
@@ -194,7 +198,11 @@ export async function initApp(root, opts = {}) {
           <option value="documents">Documenten</option>
           <option value="clothing">Kleding</option>
           <option value="toiletries">Toiletartikelen</option>
+          <option value="medicine">Medicijnen</option>
           <option value="electronics">Elektronica</option>
+          <option value="beach">Strand & water</option>
+          <option value="food">Eten & drinken</option>
+          <option value="carry-on">Handbagage</option>
           <option value="pre-departure">Voor vertrek</option>
         </select>
       <button type="submit">Toevoegen</button>

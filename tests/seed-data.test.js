@@ -55,43 +55,66 @@ describe('seed packing list', () => {
     expect(new Set(normalizedItems).size).toBe(normalizedItems.length);
   });
 
-  it('contains 223 default private-trip items', () => {
+  it('contains 240 default private-trip items', () => {
     const privateTripItemCount = Object.values(privateSeedItems).flat().length;
 
-    expect(privateTripItemCount).toBe(223);
+    expect(privateTripItemCount).toBe(240);
   });
 
   it('keeps private-trip seed items divided over the supported categories', () => {
     expect(privateSeedItems.documenten).toEqual(expect.arrayContaining([
       'paspoort',
-      'pasjes',
+      'rijbewijs',
       'zorgpas',
     ]));
     expect(privateSeedItems.kleding).toEqual(expect.arrayContaining([
-      'onderbroeken',
       "bh's",
-      't-shirt',
-      'jurk',
-      'zwemkleding',
+      't-shirts',
+      'strandjurk',
       'sokken',
       'slippers',
     ]));
     expect(privateSeedItems.toiletartikelen).toEqual(expect.arrayContaining([
       'shampoo',
       'conditioner',
-      'zonnebrand',
+      'zonnebrandcrème',
       'tandpasta',
-      'tandenborstel',
+      'tandenborstels',
       'borstel',
       'aftersun',
-      'medicijnen',
+    ]));
+    expect(privateSeedItems.medicijnen).toEqual(expect.arrayContaining([
+      'paracetamol',
+      'allergiepillen',
+      'melatonine',
     ]));
     expect(privateSeedItems.elektronica).toEqual(expect.arrayContaining([
-      'telefoon',
-      'oplader',
-      'oortjes',
-      'e-reader',
+      'AirPods + oplader',
+      'laptop + oplader',
+      'e-readers + oplader',
     ]));
-    expect(privateSeedItems['voor-vertrek']).toEqual(expect.arrayContaining(['plantjes water geven']));
+    expect(privateSeedItems.strand).toEqual(expect.arrayContaining([
+      'badpak',
+      "bikini's",
+      'snorkels + bril',
+    ]));
+    expect(privateSeedItems.eten).toEqual(expect.arrayContaining([
+      'rijstwafels',
+      'smint',
+      'waterfles',
+    ]));
+    // The handbagage section is intentionally a carry-on checklist:
+    // it contains a curated subset of items from other categories so the
+    // traveller can tick them off independently when packing the cabin bag.
+    expect(privateSeedItems.handbagage).toEqual(expect.arrayContaining([
+      'paracetamol',
+      'melatonine',
+      'AirPods',
+    ]));
+    // Verify the cross-category duplication is explicit and expected:
+    // an item present in handbagage may also appear in its primary category.
+    expect(privateSeedItems.medicijnen).toContain('paracetamol');
+    expect(privateSeedItems.handbagage).toContain('paracetamol');
+    expect(privateSeedItems['voor-vertrek']).toEqual(expect.arrayContaining(['planten water geven']));
   });
 });

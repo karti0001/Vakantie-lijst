@@ -1,230 +1,252 @@
 # Default packing list seed data for privé reis.
-# Vijf categorieën: documenten, kleding, toiletartikelen, elektronica, voor vertrek.
+# Negen categorieën: documenten, kleding, toiletartikelen, medicijnen, elektronica,
+#                    strand, eten, handbagage, voor-vertrek.
 documenten:
   - paspoort
-  - pasjes
-  - zorgpas
   - rijbewijs
-  - identiteitskaart
-  - reisverzekering
-  - zorgverzekeringsbewijs
-  - boekingsbevestiging
-  - instapkaart
-  - hotelvoucher
-  - contant geld
-  - noodnummers
-  - kopie paspoort
-  - visum papieren
-  - vaccinatiebewijs
-  - studentenkaart
-  - treintickets
-  - museumkaart
-  - parkeerticket
-  - bagagelabels
+  - creditcard en pasjes ABN ING
+  - zorgpas
+  - visum
+  - gezondheidsverklaring
+  - gele boekjes
+  - padie duikbrevet
+  - mondkapjes
+  - winkelwagenmuntje
 kleding:
-  - onderbroeken
-  - bh's
-  - t-shirt
-  - jurk
-  - zwemkleding
-  - sokken
-  - slippers
-  - pyjama
-  - regenjas
-  - zonnehoed
-  - spijkerbroek
-  - korte broek
-  - legging
-  - sportkleding
-  - hardloopschoenen
-  - sandalen
-  - wandelschoenen
-  - vest
-  - hoodie
-  - zonnebrilkoord
-  - nachtshirt
-  - onderhemd
   - handtas
-  - riem
-  - zomerjas
-  - winterjas
-  - handschoenen
-  - sjaal
-  - muts
-  - badjas
-  - pantoffels
-  - rok
-  - blouse
-  - linnen broek
-  - tanktop
-  - fietsbroek
-  - wollen trui
-  - galakleding
-  - stropdas
-  - polo
-  - pet
-  - slaapsokken
+  - handbagage tas
+  - kussentje
+  - oogslaapmasker
+  - bril
+  - zonnebrillen
+  - puffers cora
+  - puffer pru
+  - nekkussentje
+  - zonnebril op sterkte
+  - waterdicht heuptasje
+  - waterdichte rugtas zwart
+  - opvouwbaar tasje
+  - onderbroek met pijpjes
+  - ondergoed
+  - bh's
+  - bh clipje
+  - korte broeken
+  - lange broek
+  - lange mouwen
+  - hemdjes
+  - t-shirts
+  - sport elastieken
   - strandjurk
-  - pareo
-  - duikshirt
-  - surfschoenen
-  - hemdjurk
-  - fleecevest
-  - regenbroek
-  - thermoshirt
-  - thermobroek
-  - compressiesokken
-  - reiswaszak
-  - waszak
-  - wasknijpers
-  - reishanger
-  - opvouwbare tas
-  - strandtas
-  - crossbodytas
-  - portemonnee
-  - enkelsokken
-  - kniekousen
-  - sportbeha
-  - nachtlegging
-  - colbert
-  - chino
-  - bodywarmer
-  - leren jas
-  - kamerjas
+  - rokken kort + lang
+  - sarong
+  - sokken
+  - slaap hemdje
+  - slaap broekje
+  - slippers
+  - open schoentjes
   - sneakers
-  - instappers
-  - espadrilles
-  - strandhoed
+  - sportkleding + schoenen
+  - waslijn
+  - wasmiddel
+  - knijpers
+  - ikea zakjes
+  - pedaalemmerzakken
+  - uitdeel spullen
+  - tijdschrift
+  - puzzelboekjes
+  - potloden
+  - pennen
+  - yahtzee
+  - B&B vol liefde kaartspel
+  - catan
+  - the game
+  - tric trac
+  - theedoek
+  - schuurspons
+  - afwasmiddel
+  - weegschaaltje
+  - melkopschuimer
+  - shotglaasjes
+  - kado vic
 toiletartikelen:
+  - tandenstokers/raggers
+  - flos
+  - oordoppen
+  - tandenborstels
+  - tandpasta
+  - tandenstokers/flos/gummetjes
+  - invisible smile
+  - elastiekjes beugel
+  - doucheschuim
+  - zilvershampoo
+  - handzeep
   - shampoo
   - conditioner
-  - zonnebrand
-  - tandpasta
-  - tandenborstel
   - borstel
-  - aftersun
-  - medicijnen
-  - douchegel
-  - gezichtsreiniger
   - dagcreme
-  - nachtcreme
-  - deodorant
-  - scheermes
-  - scheergel
-  - make-up
-  - makeupremover
-  - lenzenvloeistof
-  - contactlenzen
-  - lippenbalsem
+  - bodylotion
+  - aftersun
+  - sunblock make-up
+  - sunblock olie
+  - sunblock leave-in
+  - sun lippenbalsem
+  - haarspray
   - haarolie
-  - haarelastiekjes
-  - wattenschijfjes
+  - uitgroeispray
+  - kledingverfrisser
+  - benencreme
+  - deo benen 0,0%
+  - polarwise tubes
+  - talkpoeder
+  - make-up
+  - spiegel
+  - pincet
+  - scheermesje
+  - haarklemmen
+  - elastiekjes
+  - scheermesje gezicht
+  - oogcreme littekencreme
+  - eczeemcreme
+  - luchtjes
+  - bruiningscreme + handschoen
+  - micellair water
+  - micellair waterproef
+  - watjes
   - wattenstaafjes
   - nagelknipper
-  - vijl
-  - pincet
-  - parfum
-  - handcreme
-  - voetencreme
-  - mondwater
-  - flosdraad
-  - tampons
+  - nagelriem stokje
+  - nagelvijl klein en groot
+  - nagellak remover
+  - nagellak
+  - nagelvijl
+  - pleisters
+  - schaar
+  - mesje
+  - purol/lipbalm
+  - verfrissingsdoekjes
+  - zakdoekjes
+  - natte washandjes
+  - wc bril doekjes
   - maandverband
-  - reisflesjes
-  - zeep
-  - desinfectiegel
-  - afterbite
-  - reisdoekjes
-  - washandjes
-  - badmuts
-  - haarklem
-  - droogshampoo
-  - haarspray
-  - scrubhandschoen
-  - gezichtsmasker
-  - puimsteen
-  - massageolie
-  - koortsthermometer
-  - allergietabletten
-  - reispilletjes
-  - muggenspray
-  - blarenpleisters
-  - eerstehulpset
-  - oorkappen
+  - tampons
+  - inlegkruisjes
+  - zonnebrandcrème
+  - mondpleisters
+  - neusklem
+  - contactlenzen
+  - oogpotlood
+  - kleine deo
+  - lippenbalsem
+  - spiegeltje
+medicijnen:
+  - diarree remmers
+  - stoelgang tabletten
+  - paracetamol
+  - paracetamol zetpillen
+  - pijnstillers
+  - diclofenac
+  - tramadol
+  - allergiepillen
+  - collageen
+  - melatonine
+  - vitaminen
+  - maagzuurremmers
+  - rennies
+  - medicijnen cholesterol
+  - leesbril
+  - mini deet
+  - anti muggenjeuk
+  - muggenspul deet
 elektronica:
-  - telefoon
-  - oplader
-  - oortjes
-  - e-reader
-  - tablet
-  - laptop
-  - camera
-  - batterijen
+  - AirPods + oplader
+  - iPad + oplader
+  - telefoons + opladers
+  - horloge + oplader
+  - ventilator + oplader
+  - JBL box + lader
+  - föhn
+  - Dyson
+  - electrische tandenborstel + lader
+  - vliegenmepper (electrisch)
+  - lampjes op rol
   - wereldstekker
-  - powerbank
-  - USB-kabel
-  - smartwatch
-  - smartwatch oplader
-  - koptelefoon
-  - reisstekkerdoos
-  - haardroger
-  - krultang
-  - stijltang
-  - scheerapparaat
-  - gps
-  - speaker
-  - SD kaart
-  - selfiestick
-  - statief
-  - zaklamp
-  - wekker
-  - AirTag
-  - gaming console
-  - muis
-  - toetsenbord
-  - USB-C hub
-  - portable monitor
-  - reisrouter
-  - simkaart pin
-  - autolader
+  - stekkerdoos
+  - laptop + oplader
+  - e-readers + oplader
+  - telefoonhoesje met touwtje
+  - waterdicht telefoonhoesje
+strand:
+  - strandtas
+  - toilettasje strand
+  - badlaken klein en groot
+  - knijpers voor badlaken
+  - badhanddoeken
+  - washandjes
+  - badpak
+  - bikini's
+  - tuniek over je badkleding
+  - uv shirt + broekje
+  - snorkels + bril
+  - flippers
+  - waterschoentjes
+  - carbijnhaken
+  - waterhangmatjes
+  - opblaaskussen
+  - kleine handdoek
+eten:
+  - waterfles
+  - waterdrop
+  - nespresso cupjes
+  - amandelmelk
+  - havermout
+  - speculoos
+  - flavor powder
+  - gepofte spelt
+  - rijstwafels
+  - gedroogd fruit
+  - lotuskoekjes
+  - bami soep
+  - zout
+  - kaneel
+  - kruiden
+  - tuna with a twist
+  - eiwitpoeder
+  - muesli/eiwitrepen
+  - zelf gemaakte snacks/koekjes
+  - tuc
+  - smint
+  - drop
+  - snoep
+  - van kleef
+  - skyr
+  - water
+handbagage:
+  - kleine deo
+  - natte washandjes
+  - lippenbalsem
+  - spiegeltje
+  - oogpotlood
+  - contactlenzen
+  - bril
+  - puzzelboekje
+  - AirPods
+  - iPad
+  - e-reader
+  - smint
+  - melatonine
+  - paracetamol
+  - opladers
+  - zakdoekjes
+  - kussentje
+  - borstel
+  - snoep
+  - rijstwafel
+  - skyr
+  - water
 voor-vertrek:
-  - plantjes water geven
-  - huisdierenvoer regelen
-  - vuilnis buiten zetten
-  - koelkast leegmaken
-  - ramen sluiten
-  - deuren op slot doen
-  - alarm inschakelen
-  - thermostaat lager zetten
-  - post pauzeren
-  - buren informeren
-  - huisdierenoppas bevestigen
-  - paspoorten controleren
-  - online inchecken
-  - bagage wegen
-  - taxi reserveren
-  - parkeerplaats boeken
-  - vluchtstatus checken
-  - reisverzekering activeren
-  - valuta wisselen
-  - pinpas vrijzetten
-  - medicatie klaarleggen
-  - waterfles vullen
-  - snacks inpakken
-  - huis schoon achterlaten
-  - was doen
-  - droger legen
-  - afwasmachine uitruimen
-  - oplader klaarleggen
-  - camera opladen
-  - navigatie downloaden
-  - offline kaarten opslaan
-  - weerbericht controleren
-  - reisroute printen
-  - hotel bellen
-  - pasfoto meenemen
-  - sleutels afgeven
-  - prullenbak legen
-  - bed verschonen
-  - handbagage controleren
-  - wekker zetten
+  - planten water geven
+  - kattenbak verschonen
+  - voederbak vullen
+  - waterbak verschonen
+  - vuilnisbakken legen
+  - koelkast checken

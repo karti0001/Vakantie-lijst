@@ -4,7 +4,7 @@
  * Shape:
  * {
  *   version: 1,
- *   items: [{ id, name, category: 'documents'|'clothing'|'toiletries'|'electronics'|'pre-departure', custom: boolean, checked: boolean }],
+ *   items: [{ id, name, category: 'documents'|'clothing'|'toiletries'|'medicine'|'electronics'|'beach'|'food'|'carry-on'|'pre-departure', custom: boolean, checked: boolean }],
  *   theme: 'auto' | 'light' | 'dark',
  *   tripType: 'private' | 'business',
  *   destinationCountry: string
@@ -15,7 +15,7 @@ export const STORAGE_KEY = 'travel-prep:state:v2';
 const LEGACY_STORAGE_KEYS = ['travel-prep:state:v1', 'travel-prep:state'];
 
 /**
- * @typedef {{ id: string, name: string, category: 'documents' | 'clothing' | 'toiletries' | 'electronics' | 'pre-departure', custom: boolean, checked: boolean }} Item
+ * @typedef {{ id: string, name: string, category: 'documents' | 'clothing' | 'toiletries' | 'medicine' | 'electronics' | 'beach' | 'food' | 'carry-on' | 'pre-departure', custom: boolean, checked: boolean }} Item
  * @typedef {{ version: 1, items: Item[], theme: 'auto'|'light'|'dark', tripType: 'private'|'business', destinationCountry: string }} State
  */
 
@@ -76,13 +76,17 @@ export function mergeDefaults(defaults, existing) {
     }
   }
 
-  /** @type {Array<'documents'|'clothing'|'toiletries'|'electronics'|'pre-departure'>} */
-  const cats = ['documents', 'clothing', 'toiletries', 'electronics', 'pre-departure'];
+  /** @type {Array<'documents'|'clothing'|'toiletries'|'medicine'|'electronics'|'beach'|'food'|'carry-on'|'pre-departure'>} */
+  const cats = ['documents', 'clothing', 'toiletries', 'medicine', 'electronics', 'beach', 'food', 'carry-on', 'pre-departure'];
   const yamlKeys = {
     documents: ['documents', 'documenten'],
     clothing: ['clothing', 'kleding'],
     toiletries: ['toiletries', 'toiletartikelen'],
+    medicine: ['medicine', 'medicijnen'],
     electronics: ['electronics', 'elektronica'],
+    beach: ['beach', 'strand'],
+    food: ['food', 'eten'],
+    'carry-on': ['carry-on', 'handbagage'],
     'pre-departure': ['pre-departure', 'voor-vertrek'],
   };
   for (const cat of cats) {

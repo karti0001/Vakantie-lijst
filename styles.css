@@ -406,6 +406,15 @@ button {
 .list-must-have h2::before { content: '⭐'; }
 .list-nice-to-have h2::before { content: '✨'; }
 .list-unchecked h2::before { content: '☝️'; }
+.list-documents h2::before { content: '📋 '; }
+.list-clothing h2::before { content: '👗 '; }
+.list-toiletries h2::before { content: '🧴 '; }
+.list-medicine h2::before { content: '💊 '; }
+.list-electronics h2::before { content: '🔌 '; }
+.list-beach h2::before { content: '🏖️ '; }
+.list-food h2::before { content: '🍎 '; }
+.list-carry-on h2::before { content: '🎒 '; }
+.list-pre-departure h2::before { content: '✈️ '; }
 
 .unchecked-toggle {
   margin: 0 0 0.5rem;
