@@ -56,9 +56,9 @@ describe('seed packing list', () => {
   });
 
   it('contains 223 default private-trip items', () => {
-    const totalItems = Object.values(privateSeedItems).flat().length;
+    const privateTripItemCount = Object.values(privateSeedItems).flat().length;
 
-    expect(totalItems).toBe(223);
+    expect(privateTripItemCount).toBe(223);
   });
 
   it('keeps private-trip seed items divided over the supported categories', () => {
