@@ -22,6 +22,7 @@ const CATEGORY_LABELS = {
   'pre-departure': 'Voor vertrek',
 };
 const UNCHECKED_AUTO_COLLAPSE_THRESHOLD = 5;
+const DEFAULT_TRIP_TYPE = 'private';
 
 /**
  * Initialise the app inside the given root element.
@@ -53,7 +54,10 @@ export async function initApp(root, opts = {}) {
         const res = await fetch('./data/items-private.yaml');
         if (!res.ok) throw new Error(`Failed to load items-private.yaml: ${res.status}`);
         return res.text();
-      } catch {
+      } catch (error) {
+        if (!opts.fetchYaml) {
+          console.debug('Could not load private trip seed data:', error);
+        }
         return fetchYaml();
       }
     });
@@ -76,7 +80,7 @@ export async function initApp(root, opts = {}) {
   };
   const persisted = loadState(storage);
   /** @type {State} */
-  let state = mergeDefaults(defaultsByTrip[persisted?.tripType ?? 'private'], persisted);
+  let state = mergeDefaults(defaultsByTrip[persisted?.tripType ?? DEFAULT_TRIP_TYPE], persisted);
   saveState(state, storage);
 
   let uncheckedCollapsed = state.items.filter((i) => !i.checked).length > UNCHECKED_AUTO_COLLAPSE_THRESHOLD;
