@@ -9,7 +9,7 @@ describe('seed packing list', () => {
     expect(seedItems.documenten).toEqual(expect.arrayContaining([
       'paspoort',
       'pasjes',
-      'cc',
+      'creditcard',
       'company card',
     ]));
     expect(seedItems.kleding).toEqual(expect.arrayContaining([
