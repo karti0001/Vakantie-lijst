@@ -23,6 +23,7 @@ const CATEGORY_LABELS = {
 };
 const UNCHECKED_AUTO_COLLAPSE_THRESHOLD = 5;
 const DEFAULT_TRIP_TYPE = 'private';
+const TRIP_TYPES = /** @type {const} */ (['private', 'business']);
 
 /**
  * Initialise the app inside the given root element.
@@ -79,9 +80,35 @@ export async function initApp(root, opts = {}) {
     private: parseYaml(privateYamlText),
   };
   const persisted = loadState(storage);
-  /** @type {State} */
-  let state = mergeDefaults(defaultsByTrip[persisted?.tripType ?? DEFAULT_TRIP_TYPE], persisted);
-  saveState(state, storage);
+  const persistedItemsByTrip =
+    persisted && typeof persisted === 'object' && persisted.itemsByTrip && typeof persisted.itemsByTrip === 'object'
+      ? persisted.itemsByTrip
+      : null;
+  const initialTripType = persisted?.tripType ?? DEFAULT_TRIP_TYPE;
+  const activeTripType = TRIP_TYPES.includes(initialTripType) ? initialTripType : DEFAULT_TRIP_TYPE;
+  const itemsByTrip = {
+    private: mergeDefaults(
+      defaultsByTrip.private,
+      persistedItemsByTrip?.private
+        ? { ...persisted, tripType: 'private', items: persistedItemsByTrip.private }
+        : (persisted?.tripType === 'private' ? persisted : null),
+    ).items,
+    business: mergeDefaults(
+      defaultsByTrip.business,
+      persistedItemsByTrip?.business
+        ? { ...persisted, tripType: 'business', items: persistedItemsByTrip.business }
+        : (persisted?.tripType === 'business' ? persisted : null),
+    ).items,
+  };
+  let state = {
+    version: 1,
+    theme: persisted?.theme ?? 'auto',
+    destinationCountry: persisted?.destinationCountry ?? '',
+    tripType: activeTripType,
+    items: itemsByTrip[activeTripType],
+    itemsByTrip,
+  };
+  saveAppState();
 
   let uncheckedCollapsed = state.items.filter((i) => !i.checked).length > UNCHECKED_AUTO_COLLAPSE_THRESHOLD;
   let uncheckedCollapseUserSet = false;
@@ -93,6 +120,11 @@ export async function initApp(root, opts = {}) {
 
   render();
   fetchGitHubStars();
+
+  function saveAppState() {
+    state.itemsByTrip[state.tripType] = state.items;
+    saveState(state, storage);
+  }
 
   // ----- Shared list import --------------------------------------------------
 
@@ -356,7 +388,7 @@ export async function initApp(root, opts = {}) {
     select.value = state.theme;
     select.addEventListener('change', () => {
       state.theme = /** @type {any} */ (select.value);
-      saveState(state, storage);
+      saveAppState();
       applyTheme(state.theme);
     });
     return wrap;
@@ -377,16 +409,18 @@ export async function initApp(root, opts = {}) {
     select.addEventListener('change', () => {
       const nextTripType = /** @type {'private'|'business'} */ (select.value);
       if (nextTripType === state.tripType) return;
-      const preservedCustomItems = state.items.filter((item) => item.custom);
+      const previousTripType = state.tripType;
+      const itemsByTripWithCurrent = {
+        ...state.itemsByTrip,
+        [previousTripType]: state.items,
+      };
       state = {
         ...state,
         tripType: nextTripType,
-        items: mergeDefaults(
-          defaultsByTrip[nextTripType],
-          { ...state, tripType: nextTripType, items: preservedCustomItems },
-        ).items,
+        itemsByTrip: itemsByTripWithCurrent,
+        items: itemsByTripWithCurrent[nextTripType],
       };
-      saveState(state, storage);
+      saveAppState();
       render();
     });
     return wrap;
@@ -462,7 +496,7 @@ export async function initApp(root, opts = {}) {
     select.value = selectedCountry?.code ?? '';
     select.addEventListener('change', () => {
       state.destinationCountry = select.value;
-      saveState(state, storage);
+      saveAppState();
       render();
     });
     label.appendChild(select);
@@ -726,7 +760,7 @@ export async function initApp(root, opts = {}) {
           changed = true;
         }
         if (changed) {
-          saveState(state, storage);
+          saveAppState();
           render();
         }
         close();
@@ -801,14 +835,14 @@ export async function initApp(root, opts = {}) {
       custom: true,
       checked: false,
     });
-    saveState(state, storage);
+    saveAppState();
     render();
   }
 
   /** @param {string} id */
   function removeItem(id) {
     state.items = state.items.filter((i) => i.id !== id);
-    saveState(state, storage);
+    saveAppState();
     render();
   }
 
@@ -821,7 +855,7 @@ export async function initApp(root, opts = {}) {
     const item = state.items.find((i) => i.id === id);
     if (!item) return;
     item.checked = checked;
-    saveState(state, storage);
+    saveAppState();
 
     if (checked) {
       animateIntoSuitcase(li);
@@ -851,7 +885,7 @@ export async function initApp(root, opts = {}) {
       }
     }
     if (changed) {
-      saveState(state, storage);
+      saveAppState();
       render();
     }
   }
@@ -865,7 +899,7 @@ export async function initApp(root, opts = {}) {
       }
     }
     if (changed) {
-      saveState(state, storage);
+      saveAppState();
       render();
     }
   }
