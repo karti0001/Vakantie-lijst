@@ -27,7 +27,7 @@ const CATEGORY_LABELS = {
 };
 const UNCHECKED_AUTO_COLLAPSE_THRESHOLD = 5;
 const DEFAULT_TRIP_TYPE = 'private';
-const TRIP_TYPES = /** @type {const} */ (['private', 'business']);
+const TRIP_TYPES = /** @type {const} */ (['private', 'business', 'weekend']);
 
 /**
  * Initialise the app inside the given root element.
@@ -37,6 +37,7 @@ const TRIP_TYPES = /** @type {const} */ (['private', 'business']);
  * @param {object} [opts]
  * @param {() => Promise<string>} [opts.fetchYaml]  - returns YAML text
  * @param {() => Promise<string>} [opts.fetchPrivateYaml]  - returns YAML text for private trips
+ * @param {() => Promise<string>} [opts.fetchWeekendYaml]  - returns YAML text for weekend trips
  * @param {() => Promise<TravelDocumentData>} [opts.fetchTravelDocuments]
  * @param {Storage} [opts.storage]
  * @param {string} [opts.buildId]  - stamped by deploy workflow
@@ -66,6 +67,13 @@ export async function initApp(root, opts = {}) {
         return fetchYaml();
       }
     });
+  const fetchWeekendYaml =
+    opts.fetchWeekendYaml ??
+    (async () => {
+      const res = await fetch('./data/items-weekend.yaml');
+      if (!res.ok) throw new Error(`Failed to load items-weekend.yaml: ${res.status}`);
+      return res.text();
+    });
   const fetchTravelDocuments =
     opts.fetchTravelDocuments ??
     (async () => {
@@ -74,14 +82,16 @@ export async function initApp(root, opts = {}) {
       return res.json();
     });
 
-  const [yamlText, privateYamlText, travelDocuments] = await Promise.all([
+  const [yamlText, privateYamlText, weekendYamlText, travelDocuments] = await Promise.all([
     fetchYaml(),
     fetchPrivateYaml(),
+    fetchWeekendYaml(),
     loadTravelDocumentData(fetchTravelDocuments),
   ]);
   const defaultsByTrip = {
     business: parseYaml(yamlText),
     private: parseYaml(privateYamlText),
+    weekend: parseYaml(weekendYamlText),
   };
   const persisted = loadState(storage);
   const persistedItemsByTrip =
@@ -102,6 +112,12 @@ export async function initApp(root, opts = {}) {
       persistedItemsByTrip?.business
         ? { ...persisted, tripType: 'business', items: persistedItemsByTrip.business }
         : (persisted?.tripType === 'business' ? persisted : null),
+    ).items,
+    weekend: mergeDefaults(
+      defaultsByTrip.weekend,
+      persistedItemsByTrip?.weekend
+        ? { ...persisted, tripType: 'weekend', items: persistedItemsByTrip.weekend }
+        : (persisted?.tripType === 'weekend' ? persisted : null),
     ).items,
   };
   let state = {
@@ -410,12 +426,13 @@ export async function initApp(root, opts = {}) {
       <select aria-label="Reissoort">
         <option value="private">🏖️ Privé reis</option>
         <option value="business">💼 Zakelijke reis</option>
+        <option value="weekend">🧳 Weekend weg</option>
       </select>
     `;
     const select = /** @type {HTMLSelectElement} */ (wrap.querySelector('select'));
     select.value = state.tripType;
     select.addEventListener('change', () => {
-      const nextTripType = /** @type {'private'|'business'} */ (select.value);
+      const nextTripType = /** @type {'private'|'business'|'weekend'} */ (select.value);
       if (nextTripType === state.tripType) return;
       const previousTripType = state.tripType;
       const itemsByTripWithCurrent = {

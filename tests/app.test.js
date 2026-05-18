@@ -68,6 +68,7 @@ async function mount(
   yaml = YAML,
   travelDocuments = TRAVEL_DOCUMENTS,
   privateYaml = yaml,
+  weekendYaml = yaml,
 ) {
   // Mirror the document-level attributes from index.html so accessibility
   // checks see the same surface as production.
@@ -83,6 +84,7 @@ async function mount(
     storage,
     fetchYaml: async () => yaml,
     fetchPrivateYaml: async () => privateYaml,
+    fetchWeekendYaml: async () => weekendYaml,
     fetchTravelDocuments: async () => travelDocuments,
     locationHash,
   });
@@ -234,7 +236,7 @@ describe('app integration', () => {
     expect(saved.items.every((i) => i.checked)).toBe(true);
   });
 
-  it('lets the user choose between a private and business trip', async () => {
+  it('lets the user choose between a private, business and weekend trip', async () => {
     const storage = memStorage();
     {
       const { root } = await mount(storage);
@@ -243,19 +245,20 @@ describe('app integration', () => {
       expect(Array.from(select.options).map((option) => option.textContent)).toEqual([
         '🏖️ Privé reis',
         '💼 Zakelijke reis',
+        '🧳 Weekend weg',
       ]);
       expect(select.value).toBe('private');
 
-      select.value = 'business';
+      select.value = 'weekend';
       select.dispatchEvent(new Event('change', { bubbles: true }));
     }
 
-    expect(JSON.parse(storage.getItem(STORAGE_KEY)).tripType).toBe('business');
+    expect(JSON.parse(storage.getItem(STORAGE_KEY)).tripType).toBe('weekend');
     const { root } = await mount(storage);
-    expect(root.querySelector('select[aria-label="Reissoort"]').value).toBe('business');
+    expect(root.querySelector('select[aria-label="Reissoort"]').value).toBe('weekend');
   });
 
-  it('shows separate item lists for private and business trips', async () => {
+  it('shows separate item lists for private, business and weekend trips', async () => {
     const businessYaml = `documenten:
   - company card
 kleding:
@@ -276,6 +279,16 @@ elektronica:
   - e-reader
 voor-vertrek:
 `;
+    const weekendYaml = `documenten:
+  - Bankpasjes
+kleding:
+  - Dekbedden
+toiletartikelen:
+  - Zonnebrandcrème
+elektronica:
+  - Stekkerdozen
+voor-vertrek:
+`;
 
     const storage = memStorage();
     storage.setItem(STORAGE_KEY, JSON.stringify({
@@ -286,9 +299,10 @@ voor-vertrek:
       destinationCountry: '',
     }));
 
-    const { root } = await mount(storage, '', businessYaml, TRAVEL_DOCUMENTS, privateYaml);
+    const { root } = await mount(storage, '', businessYaml, TRAVEL_DOCUMENTS, privateYaml, weekendYaml);
     expect(root.textContent).toContain('company card');
     expect(root.textContent).not.toContain('zwemkleding');
+    expect(root.textContent).not.toContain('Dekbedden');
 
     const input = root.querySelector('#new-item-name');
     const form = root.querySelector('.add-form');
@@ -301,6 +315,14 @@ voor-vertrek:
     select.dispatchEvent(new Event('change', { bubbles: true }));
 
     expect(root.textContent).toContain('zwemkleding');
+    expect(root.textContent).not.toContain('company card');
+    expect(root.textContent).not.toContain('camera');
+    expect(root.textContent).not.toContain('Dekbedden');
+
+    select.value = 'weekend';
+    select.dispatchEvent(new Event('change', { bubbles: true }));
+    expect(root.textContent).toContain('Dekbedden');
+    expect(root.textContent).toContain('Stekkerdozen');
     expect(root.textContent).not.toContain('company card');
     expect(root.textContent).not.toContain('camera');
 
@@ -593,6 +615,8 @@ voor-vertrek:
     await initApp(r, {
       storage: memStorage(),
       fetchYaml: async () => YAML,
+      fetchPrivateYaml: async () => YAML,
+      fetchWeekendYaml: async () => YAML,
       fetchTravelDocuments: async () => TRAVEL_DOCUMENTS,
       buildId: 'abc123def456-20240101120000',
     });
