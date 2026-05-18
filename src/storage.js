@@ -6,7 +6,7 @@
  *   version: 1,
  *   items: [{ id, name, category: 'documents'|'clothing'|'toiletries'|'medicine'|'electronics'|'beach'|'food'|'carry-on'|'pre-departure', custom: boolean, checked: boolean }],
  *   theme: 'auto' | 'light' | 'dark',
- *   tripType: 'private' | 'business',
+ *   tripType: 'private' | 'business' | 'weekend',
  *   destinationCountry: string
  * }
  */
@@ -16,7 +16,7 @@ const LEGACY_STORAGE_KEYS = ['travel-prep:state:v1', 'travel-prep:state'];
 
 /**
  * @typedef {{ id: string, name: string, category: 'documents' | 'clothing' | 'toiletries' | 'medicine' | 'electronics' | 'beach' | 'food' | 'carry-on' | 'pre-departure', custom: boolean, checked: boolean }} Item
- * @typedef {{ version: 1, items: Item[], theme: 'auto'|'light'|'dark', tripType: 'private'|'business', destinationCountry: string }} State
+ * @typedef {{ version: 1, items: Item[], theme: 'auto'|'light'|'dark', tripType: 'private'|'business'|'weekend', destinationCountry: string }} State
  */
 
 /** @returns {State | null} */

@@ -1,0 +1,129 @@
+# Default packing list seed data for Weekend weg.
+# Negen categorieën: documenten, kleding, toiletartikelen, medicijnen, elektronica,
+#                    strand, eten, handbagage, voor-vertrek.
+documenten:
+  - Paspoorten
+  - Rijbewijs
+  - Bankpasjes
+kleding:
+  - Dekbedden
+  - Dekbedovertrek
+  - Kussensloop
+  - Hoeslaken
+  - Hoofd kussens
+  - Kleine kussens
+  - Kussens Bart
+  - Handtas
+  - Waterdichte tas
+  - Waterdichte heuptasjes
+  - Telefoonhoesje met touwtje
+  - Waterdicht telefoonhoesje
+  - Waterdicht heuptasje
+  - Waterdichte rugtas zwart
+  - Opvouwbaar tasje
+  - Onderbroek met pijpjes
+  - Armsleeve
+  - Polsband
+  - Ondergoed
+  - Bh’s
+  - BH clipje
+  - Korte broeken
+  - Lange broek
+  - Lange mouwen
+  - Hemdjes
+  - T-shirts
+  - Sportleggings
+  - Sport shirt
+  - Sweater
+  - Sokken
+  - Slaap hemdje
+  - Slaap broekje
+  - Sportkleding + schoenen
+  - Slippers
+  - Sneakers
+  - Wandelschoenen
+toiletartikelen:
+  - Föhn
+  - Electrische tandenborstel + lader
+  - Contactlenzen
+  - Bril
+  - Leesbril
+  - Zonnebrillen
+  - Oordoppen
+  - Maandverband
+  - Tampons
+  - Inlegkruisjes
+  - Make-up
+  - Spiegel
+  - Pincet
+  - Haarklemmen
+  - Elastiekjes
+  - Borstels klein groot
+  - Tandenborstels
+  - Tandpasta
+  - Tandenstokers/flos/gummetjes
+  - Nachtbeugel
+  - Scheermesje
+  - Doucheschuim
+  - Conditioner
+  - Shampoo
+  - Bodylotion
+  - Handzeep
+  - Zonnebrandcrème
+  - Dagcrème
+  - Haarspray
+  - Haarolie
+  - Uitgroeispray
+  - Muggenspul deet
+  - Anti muggenjeuk
+  - Vliegenmepper
+  - Luchtjes
+  - Micellair water
+  - Micellair waterproef
+  - Watjes
+  - Wattenstaafjes
+  - Nagelknipper
+  - Nagelvijl
+  - Nagellak remover
+  - Nagellak
+  - Pleisters
+  - Schaar
+  - Mesje
+  - Purol/lipbalm
+  - Schoonmaakdoekjes glorix (!!!)
+  - Zakdoekjes
+  - Pedaalemmerzakken
+medicijnen:
+  - Puffers
+  - Medicijn doosje
+  - Rennies
+  - Allergiepillen (!)
+elektronica:
+  - AirPods + oplader
+  - Telefoons + opladers
+  - Horloge + oplader
+  - Stekkerdozen
+  - Laptop + oplader
+  - Ventilator + oplader
+strand:
+  - Handdoeken
+  - Badhanddoeken dunne
+  - (Natte) washandjes
+  - Zwemkleding
+  - Waterschoentjes (!!!)
+  - Carbijnhaken
+eten:
+  - Waterfles
+  - Waterdrops
+  - Eiwitpoeder
+  - Blender??
+handbagage:
+  - Spelletjes
+  - Puzzelboekjes
+  - Pennen uitwisbare
+  - Yahtzee
+  - Catan
+  - The Game
+  - Tric trac
+  - Theedoek
+voor-vertrek:
