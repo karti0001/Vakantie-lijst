@@ -112,9 +112,9 @@ describe('app integration', () => {
     select.value = 'electronics';
     form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
 
-    expect(root.querySelector('.list-electronics').textContent).toContain('kindle');
+    expect(root.querySelector('.list-electronics').textContent).toContain('Kindle');
     // Custom items expose a remove button
-    expect(root.querySelector('[aria-label="Verwijder kindle"]')).toBeTruthy();
+    expect(root.querySelector('[aria-label="Verwijder Kindle"]')).toBeTruthy();
   });
 
   it('does not add empty or duplicate items', async () => {
@@ -188,7 +188,7 @@ describe('app integration', () => {
       input.value = 'sunglasses';
       form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
       const cb = Array.from(root.querySelectorAll('.item label'))
-        .find((l) => l.textContent === 'sunglasses')
+        .find((l) => l.textContent === 'Sunglasses')
         .previousElementSibling;
       cb.checked = true;
       cb.dispatchEvent(new Event('change', { bubbles: true }));
@@ -196,9 +196,9 @@ describe('app integration', () => {
     }
     // remount
     const { root } = await mount(storage);
-    expect(root.textContent).toContain('sunglasses');
+    expect(root.textContent).toContain('Sunglasses');
     const sun = Array.from(root.querySelectorAll('.item label')).find(
-      (l) => l.textContent === 'sunglasses',
+      (l) => l.textContent === 'Sunglasses',
     );
     expect(sun.previousElementSibling.checked).toBe(true);
   });
@@ -308,7 +308,7 @@ voor-vertrek:
     const form = root.querySelector('.add-form');
     input.value = 'camera';
     form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
-    expect(root.textContent).toContain('camera');
+    expect(root.textContent).toContain('Camera');
 
     const select = root.querySelector('select[aria-label="Reissoort"]');
     select.value = 'private';
@@ -316,7 +316,7 @@ voor-vertrek:
 
     expect(root.textContent).toContain('zwemkleding');
     expect(root.textContent).not.toContain('company card');
-    expect(root.textContent).not.toContain('camera');
+    expect(root.textContent).not.toContain('Camera');
     expect(root.textContent).not.toContain('Dekbedden');
 
     select.value = 'weekend';
@@ -324,12 +324,12 @@ voor-vertrek:
     expect(root.textContent).toContain('Dekbedden');
     expect(root.textContent).toContain('Stekkerdozen');
     expect(root.textContent).not.toContain('company card');
-    expect(root.textContent).not.toContain('camera');
+    expect(root.textContent).not.toContain('Camera');
 
     select.value = 'business';
     select.dispatchEvent(new Event('change', { bubbles: true }));
     expect(root.textContent).toContain('company card');
-    expect(root.textContent).toContain('camera');
+    expect(root.textContent).toContain('Camera');
   });
 
   it('renders the travel documents destination selector on mount', async () => {
@@ -580,16 +580,16 @@ voor-vertrek:
     }
   });
 
-  it('stores new items in lowercase regardless of input case', async () => {
+  it('capitalises the first letter of new items regardless of input case', async () => {
     const { root, storage } = await mount();
     const input = root.querySelector('#new-item-name');
     const form = root.querySelector('.add-form');
-    input.value = 'SunGlAsSeS';
+    input.value = 'melk';
     form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
     const labels = Array.from(root.querySelectorAll('.item label')).map((l) => l.textContent);
-    expect(labels).toContain('sunglasses');
+    expect(labels).toContain('Melk');
     const saved = JSON.parse(storage.getItem(STORAGE_KEY));
-    const added = saved.items.find((i) => i.name === 'sunglasses');
+    const added = saved.items.find((i) => i.name === 'Melk');
     expect(added).toBeTruthy();
   });
 

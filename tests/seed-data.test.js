@@ -240,6 +240,29 @@ describe('seed packing list', () => {
       'Theedoek',
       'Eiwitpoeder',
       'Blender??',
+      'Dutje',
+    ]));
+  });
+
+  it('places sleep items in the slaap-spullen category in Weekend weg', () => {
+    expect(weekendSeedItems['slaap-spullen']).toEqual(expect.arrayContaining([
+      'Dekbedden',
+      'Dekbedovertrek',
+      'Kussensloop',
+      'Hoeslaken',
+      'Hoofd kussens',
+      'Kleine kussens',
+      'Kussens Bart',
+      'Dutje',
+    ]));
+    expect(weekendSeedItems.kleding).not.toEqual(expect.arrayContaining([
+      'Dekbedden',
+      'Dekbedovertrek',
+      'Kussensloop',
+      'Hoeslaken',
+      'Hoofd kussens',
+      'Kleine kussens',
+      'Kussens Bart',
     ]));
   });
 });
