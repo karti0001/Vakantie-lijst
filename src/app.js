@@ -13,10 +13,11 @@ import { buildShareUrl, readShareFromHash } from './share.js';
 /** @typedef {{ code: string, name: string, documents: TravelDocument[] }} TravelCountry */
 /** @typedef {{ countries: TravelCountry[] }} TravelDocumentData */
 
-const CATEGORIES = /** @type {const} */ (['documents', 'clothing', 'toiletries', 'medicine', 'electronics', 'beach', 'food', 'carry-on', 'pre-departure']);
+const CATEGORIES = /** @type {const} */ (['documents', 'clothing', 'sleep-items', 'toiletries', 'medicine', 'electronics', 'beach', 'food', 'carry-on', 'pre-departure']);
 const CATEGORY_LABELS = {
   'documents': 'Documenten',
   'clothing': 'Kleding',
+  'sleep-items': 'Slaap spullen',
   'toiletries': 'Toiletartikelen',
   'medicine': 'Medicijnen',
   'electronics': 'Elektronica',
@@ -213,6 +214,7 @@ export async function initApp(root, opts = {}) {
       <select id="new-item-category" name="category">
           <option value="documents">Documenten</option>
           <option value="clothing">Kleding</option>
+          <option value="sleep-items">Slaap spullen</option>
           <option value="toiletries">Toiletartikelen</option>
           <option value="medicine">Medicijnen</option>
           <option value="electronics">Elektronica</option>
@@ -224,11 +226,6 @@ export async function initApp(root, opts = {}) {
       <button type="submit">Toevoegen</button>
     `;
     const nameInput = /** @type {HTMLInputElement} */ (form.querySelector('#new-item-name'));
-    nameInput.addEventListener('input', () => {
-      const pos = nameInput.selectionStart;
-      nameInput.value = nameInput.value.toLowerCase();
-      if (pos !== null) nameInput.setSelectionRange(pos, pos);
-    });
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const nameEl = /** @type {HTMLInputElement} */ (
@@ -842,20 +839,21 @@ export async function initApp(root, opts = {}) {
 
   /**
    * @param {string} name
-   * @param {'documents' | 'clothing' | 'toiletries' | 'electronics' | 'pre-departure'} category
+   * @param {'documents' | 'clothing' | 'sleep-items' | 'toiletries' | 'medicine' | 'electronics' | 'beach' | 'food' | 'carry-on' | 'pre-departure'} category
    */
   function addItem(name, category) {
-    const trimmed = name.trim().toLowerCase();
+    const trimmed = name.trim();
     if (!trimmed) return;
     if (!CATEGORIES.includes(category)) return;
+    const formatted = trimmed.charAt(0).toUpperCase() + trimmed.slice(1);
     // Prevent exact-duplicate (case-insensitive within category).
     const dup = state.items.find(
-      (i) => i.category === category && i.name.toLowerCase() === trimmed.toLowerCase(),
+      (i) => i.category === category && i.name.toLowerCase() === formatted.toLowerCase(),
     );
     if (dup) return;
     state.items.push({
       id: cryptoRandomId(),
-      name: trimmed,
+      name: formatted,
       category,
       custom: true,
       checked: false,

@@ -6,13 +6,6 @@ documenten:
   - Rijbewijs
   - Bankpasjes
 kleding:
-  - Dekbedden
-  - Dekbedovertrek
-  - Kussensloop
-  - Hoeslaken
-  - Hoofd kussens
-  - Kleine kussens
-  - Kussens Bart
   - Handtas
   - Waterdichte tas
   - Waterdichte heuptasjes
@@ -42,6 +35,15 @@ kleding:
   - Slippers
   - Sneakers
   - Wandelschoenen
+slaap-spullen:
+  - Dekbedden
+  - Dekbedovertrek
+  - Kussensloop
+  - Hoeslaken
+  - Hoofd kussens
+  - Kleine kussens
+  - Kussens Bart
+  - Dutje
 toiletartikelen:
   - Föhn
   - Electrische tandenborstel + lader
